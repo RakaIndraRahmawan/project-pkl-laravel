@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique(); // contoh: 'service', 'portfolio', atau judul dinamis
-            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('title')->nullable();
+            $table->enum('tag', [
+                'service', 
+                'portfolio', 
+            ])->default('service');
             $table->string('image')->nullable();
-            $table->text('desc')->nullable();
-            $table->longText('text')->nullable();
+            $table->string('desc')->nullable();
+            $table->longText('content')->nullable();
             $table->timestamps();
         });
     }
