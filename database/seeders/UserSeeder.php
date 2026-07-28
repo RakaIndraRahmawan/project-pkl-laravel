@@ -6,16 +6,13 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the user table in the database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
         User::factory()->create([
             'username' => 'Test User',

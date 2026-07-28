@@ -19,7 +19,7 @@ return new class extends Migration
                 'service', 
                 'portfolio', 
             ])->default('service');
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->string('desc')->nullable();
             $table->longText('content')->nullable();
             $table->timestamps();

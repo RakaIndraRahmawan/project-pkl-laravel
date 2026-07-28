@@ -17,12 +17,12 @@ return new class extends Migration
             // Hero Section
             $table->string('hero_title')->nullable();
             $table->string('hero_subtitle')->nullable();
-            $table->string('hero_image')->nullable();
+            $table->text('hero_image')->nullable();
 
             // About Section
             $table->string('about_title')->nullable();
             $table->text('about_desc')->nullable();
-            $table->string('about_image')->nullable();
+            $table->text('about_image')->nullable();
 
             // Contact & Social Media Section
             $table->string('contact_email')->nullable();
