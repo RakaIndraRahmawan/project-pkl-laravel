@@ -12,7 +12,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::latest()->get();
+        $pages = Page::latest()->paginate(10); // Menggunakan paginate agar rapi jika data banyak
         return view('admin.pages.index', compact('pages'));
     }
 
@@ -25,13 +25,17 @@ class PageController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'desc'  => 'nullable|string',
             'text'  => 'nullable|string',
         ]);
 
-        $data['slug'] = Str::slug($request->title);
+        // Membuat slug unik (mencegah bentrok jika ada judul yang sama)
+        $slug = Str::slug($request->title);
+        $count = Page::where('slug', 'LIKE', "{$slug}%")->count();
+        $data['slug'] = $count ? "{$slug}-{$count}" : $slug;
 
+        // Handle upload gambar
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('pages', 'public');
         }
@@ -50,16 +54,22 @@ class PageController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'desc'  => 'nullable|string',
             'text'  => 'nullable|string',
         ]);
 
-        $data['slug'] = Str::slug($request->title);
+        // Perbarui slug hanya jika judul berubah
+        if ($page->title !== $request->title) {
+            $slug = Str::slug($request->title);
+            $count = Page::where('slug', 'LIKE', "{$slug}%")->where('id', '!=', $page->id)->count();
+            $data['slug'] = $count ? "{$slug}-{$count}" : $slug;
+        }
 
+        // Handle upload gambar baru dan hapus gambar lama
         if ($request->hasFile('image')) {
-            if ($page->image) {
-                Storage::delete('public/' . $page->image);
+            if ($page->image && Storage::disk('public')->exists($page->image)) {
+                Storage::disk('public')->delete($page->image);
             }
             $data['image'] = $request->file('image')->store('pages', 'public');
         }
@@ -71,9 +81,11 @@ class PageController extends Controller
 
     public function destroy(Page $page)
     {
-        if ($page->image) {
-            Storage::delete('public/' . $page->image);
+        // Hapus file gambar terkait sebelum menghapus record dari database
+        if ($page->image && Storage::disk('public')->exists($page->image)) {
+            Storage::disk('public')->delete($page->image);
         }
+        
         $page->delete();
 
         return redirect()->route('admin.pages.index')->with('success', 'Page berhasil dihapus!');
