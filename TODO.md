@@ -56,3 +56,15 @@
 - [x] Created `resources/views/admin/pages/create.blade.php` — form to create new page with title, image, desc, text fields
 - [x] Created `resources/views/admin/pages/edit.blade.php` — form to edit existing page with image preview and pre-filled values
 
+---
+
+# Fix Login: Email → Username 🔄 IN PROGRESS
+
+## File Edits
+- [ ] 1. `app/Http/Requests/Auth/LoginRequest.php` — Ubah email → username
+- [ ] 2. `resources/views/auth/login.blade.php` — Ubah input email → username
+- [ ] 3. `app/Http/Controllers/Auth/RegisteredUserController.php` — Ubah validasi name+email → username
+- [ ] 4. `resources/views/auth/register.blade.php` — Ubah field name+email → username
+- [ ] 5. `app/Http/Requests/ProfileUpdateRequest.php` — Ubah validasi name+email → username
+- [ ] 6. `resources/views/profile/partials/update-profile-information-form.blade.php` — Ubah field name+email → username
+- [ ] 7. Jalankan `php artisan migrate:fresh --seed`
