@@ -1,41 +1,66 @@
-    <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Username -->
-        <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="{{ asset('css/style_login.css') }}">
+</head>
+<body>
+    <div class="container containerlogin" id="container">
+        <div class="form-container sign-up-container">
+            <form method="POST" action="{{ route('register') }}" class="form-login">
+                @csrf
+                <h1>Buat Akun</h1>
+                </br>
+                <span>Gunakan email anda untuk register</span>
+                <input type="text" name="name" id="register-name" value="{{ old('name') }}" placeholder="Name"/>
+                @error('name')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <input type="email" name="email" id="register-email" placeholder="Email"/>
+                @error('email')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <input type="password" name="password" id="register-password" placeholder="Password"/>
+                @error('name')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <button type="submit">Register</button>
+            </form>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="form-container sign-in-container">
+            <form method="POST" action="{{ route('login') }}" class="form-login">
+                @csrf
+                <h1>Login</h1>
+                </br>
+                <span>Masukan akun anda</span>
+                <input type="email" name="email" id="login-email" placeholder="Email" />
+                @error('email')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <input type="password" name="password" id="login-password" placeholder="Password" />
+                @error('password')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <a href="#" class="btn_sosial">Forgot your password?</a>
+                <button type="submit">Log In</button>
+            </form>
         </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+</body>
+<script src="{{ asset('js/script_login.js') }}"></script>

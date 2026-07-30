@@ -34,6 +34,11 @@ class FrontController extends Controller
         return view('pages.show', compact('page'));
     }
 
+    public function test()
+    {
+        return view('auth.login');
+    }
+
     /**
      * Memproses pengiriman pesan dari form "Hubungi Kami" di landing page.
      */

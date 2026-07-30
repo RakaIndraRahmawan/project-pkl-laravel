@@ -26,8 +26,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
-            'password' => ['required', 'string'],
+            'username' => 'required|string',
+            'password' => 'required|string',
         ]);
 
         // Kunci pembatas berdasarkan Username & IP Address

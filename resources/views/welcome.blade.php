@@ -12,12 +12,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
             <a href="#" class="font-bold text-xl text-blue-600">CompanyProfile</a>
             <div class="space-x-6 hidden md:flex">
-                <a href="#hero" class="hover:text-blue-600">Home</a>
+                <a href="#hero" class="hover:text-blue-600">Dashboard</a>
                 <a href="#about" class="hover:text-blue-600">Tentang Kami</a>
                 <a href="#services" class="hover:text-blue-600">Layanan & Portofolio</a>
                 <a href="#contact" class="hover:text-blue-600">Kontak</a>
             </div>
-            <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-blue-600">Login Admin</a>
+            <a href="{{ route('loginn') }}" class="text-sm font-semibold text-gray-600 hover:text-blue-600">Login Admin</a>
         </div>
     </nav>
 
