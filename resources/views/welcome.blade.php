@@ -17,7 +17,7 @@
                 <a href="#services" class="hover:text-blue-600">Layanan & Portofolio</a>
                 <a href="#contact" class="hover:text-blue-600">Kontak</a>
             </div>
-            <a href="{{ route('loginn') }}" class="text-sm font-semibold text-gray-600 hover:text-blue-600">Login Admin</a>
+            <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-blue-600">Login Admin</a>
         </div>
     </nav>
 

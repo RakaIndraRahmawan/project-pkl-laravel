@@ -43,7 +43,7 @@
                 @error('password')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <a href="#" class="btn_sosial">Forgot your password?</a>
+                <a href="{{ route('password.request') }}" class="btn_sosial">Forgot your password?</a>
                 <button type="submit">Log In</button>
             </form>
         </div>

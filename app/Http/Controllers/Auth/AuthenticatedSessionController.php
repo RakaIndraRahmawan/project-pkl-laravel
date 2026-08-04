@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,9 +26,9 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
-        $validated = $request->validated([
+        $validated = $request->validate([
             'email'    => 'required|string|email',
             'password' => 'required|string',
         ]);
@@ -42,11 +43,28 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
-        $request->authenticate();
+       // Cek kredensial
+        if (Auth::attempt($validated, $request->boolean('remember'))) {
+            RateLimiter::clear($throttleKey);
+            $request->session()->regenerate();
 
-        $request->session()->regenerate();
+            // Catat log login (jika kolom tersedia di database)
+            if (Schema::hasColumn('users', 'last_login_at')) {
+                $request->user()->update([
+                    'last_login_at' => now(),
+                    'last_login_ip' => $request->ip(),
+                ]);
+            }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+            return redirect()->intended(route('dashboard'));
+        }
+
+        // Tambahkan hitungan gagal jika password salah
+        RateLimiter::hit($throttleKey);
+
+        throw ValidationException::withMessages([
+            'username' => __('auth.failed'),
+        ]);
     }
 
     /**

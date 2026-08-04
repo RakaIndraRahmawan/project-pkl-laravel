@@ -26,18 +26,18 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required|string',
+            'email'    => 'required|string|email',
             'password' => 'required|string',
         ]);
 
         // Kunci pembatas berdasarkan Username & IP Address
-        $throttleKey = Str::lower($request->input('username')) . '|' . $request->ip();
+        $throttleKey = Str::lower($request->input('email')) . '|' . $request->ip();
 
         // Cek apakah user terlalu banyak mencoba login (Maksimal 5x dalam 60 detik)
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
             throw ValidationException::withMessages([
-                'username' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
+                'email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
             ]);
         }
 
