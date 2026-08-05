@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomepageController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
 // Halaman Utama Company Profile
@@ -13,7 +14,10 @@ Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/page/{slug}', [FrontController::class, 'showPage'])->name('page.show');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $totalPages = Page::count();
+    $recentPages = Page::latest()->take(5)->get();
+
+    return view('dashboard', compact('totalPages', 'recentPages'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
