@@ -26,20 +26,28 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
+            'login' => ['required', 'string'], // Email atau Username
             'password' => ['required', 'string'],
         ]);
 
-        // Kunci pembatas berdasarkan Username & IP Address
-        $throttleKey = Str::lower($request->input('username')) . '|' . $request->ip();
+        // Kunci pembatas berdasarkan Login & IP Address
+        $throttleKey = Str::lower($request->input('login')) . '|' . $request->ip();
 
         // Cek apakah user terlalu banyak mencoba login (Maksimal 5x dalam 60 detik)
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
             throw ValidationException::withMessages([
-                'username' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
+                'login' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
             ]);
         }
+
+        // Deteksi apakah input berupa email atau username biasa
+        $fieldType = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $credentials = [
+            $fieldType => $request->input('login'),
+            'password' => $request->input('password'),
+        ];
 
         // Cek kredensial
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -61,7 +69,7 @@ class AuthController extends Controller
         RateLimiter::hit($throttleKey);
 
         throw ValidationException::withMessages([
-            'username' => __('auth.failed'),
+            'login' => __('auth.failed'),
         ]);
     }
 
@@ -78,4 +86,3 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 }
-
