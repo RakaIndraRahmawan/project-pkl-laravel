@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $homepage->hero_title ?? 'Company Profile' }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800">
+@extends('layouts.apps')
 
-    <nav class="bg-white shadow-md fixed w-full z-10 top-0 left-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
-            <a href="#" class="font-bold text-xl text-blue-600">CompanyProfile</a>
-            <div class="space-x-6 hidden md:flex">
-                <a href="#hero" class="hover:text-blue-600">Dashboard</a>
-                <a href="#about" class="hover:text-blue-600">Tentang Kami</a>
-                <a href="#services" class="hover:text-blue-600">Layanan & Portofolio</a>
-                <a href="#contact" class="hover:text-blue-600">Kontak</a>
-            </div>
-            <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-blue-600">Login Admin</a>
-        </div>
-    </nav>
+@section('title', $homepage->hero_title ?? 'Selamat Datang di Perusahaan Kami')
 
+@section('navbar')
+    @include('layouts.navbar')
+@endsection
+
+@section('content')
     <section id="hero" class="pt-28 pb-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white min-h-[80vh] flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -88,6 +74,7 @@
                         @endif
                         <div class="p-6 flex-1 flex flex-col justify-between">
                             <div>
+                                <p class="text-blue-500 text-sm font-medium tracking-wide mb-3">{{ ucfirst($page->tag) }}</p>
                                 <h3 class="text-xl font-bold mb-2">{{ $page->title }}</h3>
                                 <p class="text-gray-600 text-sm mb-4">
                                     {{ Str::limit($page->desc, 100) }}
@@ -150,11 +137,8 @@
             </div>
         </div>
     </section>
+@endsection
 
-    <footer class="bg-gray-900 text-white py-8 text-center text-sm">
-        <p>&copy; {{ date('Y') }} {{ $homepage->hero_title ?? 'Company Profile' }}. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
-
+@section('footer')
+    @include('layouts.footer')
+@endsection

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontController::class, 'index'])->name('home');
 
 // Halaman Detail Service / Portfolio
+Route::get('/page/test', [FrontController::class, 'testPage'])->name('page.show.test');
 Route::get('/page/{slug}', [FrontController::class, 'showPage'])->name('page.show');
 
 // Dashboard Utama
