@@ -51,11 +51,22 @@ class FrontController extends Controller
     /**
      * Menampilkan detail halaman/layanan/portofolio berdasarkan slug.
      */
+
+    public function testPage()
+    {
+        return view('pages.show', ['page' => Page::first()]);
+    }
+    
     public function showPage($slug)
     {
         $page = Page::where('slug', $slug)->firstOrFail();
 
         return view('pages.show', compact('page'));
+    }
+
+    public function test()
+    {
+        return view('auth.login');
     }
 
     /**

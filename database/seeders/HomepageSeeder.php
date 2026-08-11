@@ -16,11 +16,11 @@ class HomepageSeeder extends Seeder
         Homepage::create([
             'hero_title' => 'Welcome to Our Website',
             'hero_subtitle' => 'We provide the best services for you.',
-            'hero_image' => null,
+            'hero_image' => 'sample-image.jpg',
             
             'about_title' => 'About Us',
             'about_desc' => 'We are a team of passionate individuals dedicated to delivering high-quality services to our clients. Our mission is to exceed expectations and create lasting relationships.',
-            'about_image' => null,
+            'about_image' => 'sample-about-image.jpg',
         
             'contact_email' => 'contact@ourwebsite.com',
             'contact_phone' => '+1 (123) 456-7890',

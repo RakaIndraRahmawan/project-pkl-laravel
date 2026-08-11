@@ -15,8 +15,13 @@ class UserSeeder extends Seeder
     {
 
         User::factory()->create([
-            'username' => 'Test User',
-            'password' => bcrypt('password'),
+            'name' => 'admin',
+            'email' => 'admin@example.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('admin123'),
+            'remember_token' => \Illuminate\Support\Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
     }

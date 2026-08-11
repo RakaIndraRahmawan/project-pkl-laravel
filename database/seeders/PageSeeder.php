@@ -14,12 +14,21 @@ class PageSeeder extends Seeder
     public function run(): void
     {
         Page::factory()->create([
-            'slug' => 'home',
-            'title' => 'Home',
+            'slug' => 'service-1',
+            'title' => 'Service 1',
             'tag' => 'service',
-            'image' => 'https://www.google.com/imgres?q=irasutoya&imgurl=https%3A%2F%2Fi.redd.it%2Fan-irasutoya-i-did-of-me-on-stream-v0-rl92y9alyr9f1.png%3Fwidth%3D300%26format%3Dpng%26auto%3Dwebp%26s%3D2885482721978de997398b54cae6f64967c1c0e3&imgrefurl=https%3A%2F%2Fwww.reddit.com%2Fr%2FVirtualYoutubers%2Fcomments%2F1ln3kz5%2Fan_irasutoya_i_did_of_me_on_stream%2F&docid=ButULKpmVACtoM&tbnid=FQcy5HOGjeLYhM&vet=12ahUKEwij4aTqp_SVAxWN3zgGHXOuHlAQnPAOegUIhwEQAA..i&w=300&h=300&hcb=2&ved=2ahUKEwij4aTqp_SVAxWN3zgGHXOuHlAQnPAOegUIhwEQAA',
-            'desc' => 'Welcome to our website! We are delighted to have you here. Explore our content and discover what we have to offer.',
-            'content' => '<p>Welcome to our website! We are delighted to have you here. Explore our content and discover what we have to offer.</p>',
+            'image' => 'sample-image.jpg',
+            'desc' => 'Discover our first service offering, designed to meet your needs and exceed your expectations.',
+            'content' => '<p>Discover our first service offering, designed to meet your needs and exceed your expectations.</p> <p>Our team of experts is committed to delivering top-notch solutions that cater to your specific requirements. We take pride in our ability to provide innovative and effective services that drive results.</p> <p>We look forward to sharing more of our services with you.</p> <p>Explore the details of Service 1 and see how it can benefit you and your business.</p> <p>Thank you for your interest, and we look forward to collaborating with you on future projects!</p>',
+        ]);
+
+        Page::factory()->create([
+            'slug' => 'portfolio-1',
+            'title' => 'Portfolio 1',
+            'tag' => 'portfolio',
+            'image' => 'sample-image.jpg',
+            'desc' => 'Discover our first portfolio item, showcasing our latest work and achievements.',
+            'content' => '<p>Discover our first portfolio item, showcasing our latest work and achievements.</p> <p>Our team of experts is committed to delivering top-notch solutions that cater to your specific requirements. We take pride in our ability to provide innovative and effective services that drive results.</p> <p>We look forward to sharing more of our work with you.</p> <p>Explore the details of Portfolio 1 and see how it can benefit you and your business.</p> <p>Thank you for your interest, and we look forward to collaborating with you on future projects!</p>',
         ]);
     }
 }

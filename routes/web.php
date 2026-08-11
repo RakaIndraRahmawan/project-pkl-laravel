@@ -42,11 +42,11 @@ Route::middleware('auth')->group(function () {
 // --- ADMIN PANEL ROUTES ---
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Manage Single Row Homepage (Raka)
+    // Manage Single Row Homepage
     Route::get('/homepage', [HomepageController::class, 'edit'])->name('homepage.edit');
     Route::put('/homepage', [HomepageController::class, 'update'])->name('homepage.update');
 
-    // Manage Pages / Service & Portfolio (Magfi & Ajas)
+    // Manage Pages / Service & Portfolio
     Route::resource('pages', PageController::class);
 
 });

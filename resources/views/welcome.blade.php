@@ -310,6 +310,7 @@
             </form>
         </div>
     </section>
+@endsection
 
     <!-- FOOTER -->
     <footer class="w-full bg-slate-900 text-slate-400 py-6 text-center text-xs">
