@@ -51,6 +51,7 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $username,
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'], // Hashed otomatis oleh casts model
         ]);
@@ -127,6 +128,6 @@ return redirect()->route('dashboard');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect('/');
     }
 }

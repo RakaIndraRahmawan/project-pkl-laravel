@@ -7,12 +7,22 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
-// Halaman Utama Company Profile
+// --- FRONTEND ROUTES ---
+// Halaman Utama (Landing Page)
 Route::get('/', [FrontController::class, 'index'])->name('home');
 
-// Halaman Detail Service / Portfolio
+// Halaman Khusus Portofolio (Opsional jika ingin halaman terpisah)
+Route::get('/portfolio', [FrontController::class, 'portfolio'])->name('portfolio');
+
+// Halaman & Process Kontak
+Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
+Route::post('/contact', [FrontController::class, 'sendMessage'])->name('contact.send');
+
+// Halaman Detail Service / Portfolio berdasarkan Slug
 Route::get('/page/{slug}', [FrontController::class, 'showPage'])->name('page.show');
 
+
+// --- DASHBOARD ROUTE ---
 Route::get('/dashboard', function () {
     $totalPages = Page::count();
     $recentPages = Page::latest()->take(5)->get();
@@ -20,12 +30,16 @@ Route::get('/dashboard', function () {
     return view('dashboard', compact('totalPages', 'recentPages'));
 })->middleware(['auth'])->name('dashboard');
 
+
+// --- USER PROFILE ROUTES ---
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// --- ADMIN PANEL ROUTES ---
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
     // Manage Single Row Homepage (Raka)

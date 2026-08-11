@@ -26,9 +26,15 @@ class PageController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'desc'  => 'nullable|string',
-            'text'  => 'nullable|string',
+            'description' => 'nullable|string',
+            'content' => 'nullable|string',
         ]);
+
+        $data['desc'] = $data['description'] ?? null;
+        unset($data['description']);
+
+        $data['text'] = $data['content'] ?? null;
+        unset($data['text']);
 
         // Membuat slug unik (mencegah bentrok jika ada judul yang sama)
         $slug = Str::slug($request->title);
@@ -55,9 +61,14 @@ class PageController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'desc'  => 'nullable|string',
-            'text'  => 'nullable|string',
+            'description' => 'nullable|string',
+            'content' => 'nullable|string',
         ]);
+
+        $data['desc'] = $data['description'] ?? $page->desc;
+        unset($data['description']);
+
+        $data['content'] = $data['content'] ?? $page->content;
 
         // Perbarui slug hanya jika judul berubah
         if ($page->title !== $request->title) {
