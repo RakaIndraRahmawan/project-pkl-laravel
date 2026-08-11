@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @error('hero_image')
+                                @error('hero_image')git stats
                                     <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
                                 @enderror
                             </div>
