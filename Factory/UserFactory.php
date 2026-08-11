@@ -34,11 +34,4 @@ class UserFactory extends Factory
             'updated_at' => now(),
         ];
     }
-
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
 }

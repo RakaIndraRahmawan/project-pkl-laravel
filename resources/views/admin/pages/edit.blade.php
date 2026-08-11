@@ -1,94 +1,176 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Page - Admin Panel</title>
 
-@section('content')
-    <div class="mb-6">
-        <div class="flex items-center space-x-3">
-            <a href="{{ route('admin.pages.index') }}"
-               class="inline-flex items-center px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-150">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-                Kembali
-            </a>
-        </div>
-        <h1 class="text-2xl font-bold text-gray-800 mt-2">Edit Page: {{ $page->title }}</h1>
-        <p class="text-gray-500 mt-1">Perbarui konten halaman service atau portfolio.</p>
-    </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="px-6 py-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                Form Edit Page
-            </h2>
-        </div>
-        <form action="{{ route('admin.pages.update', $page) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-5">
-            @csrf
-            @method('PUT')
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased">
+
+    <div class="min-h-screen flex">
+        <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 hidden md:flex">
             <div>
-                <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title <span class="text-red-500">*</span></label>
-                <input type="text" name="title" id="title" value="{{ old('title', $page->title) }}"
-                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('title') border-red-400 @enderror"
-                       placeholder="Masukkan judul halaman" required>
-                @error('title')
-                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                @enderror
+                <div class="h-20 flex items-center px-6 border-b border-slate-800">
+                    <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center shadow-lg shadow-blue-500/30">
+                            AP
+                        </div>
+                        <span class="font-heading font-extrabold text-white text-lg tracking-wide">Admin Panel</span>
+                    </a>
+                </div>
+
+                <nav class="p-4 space-y-1.5 text-sm font-medium">
+                    <div class="text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 my-2">Menu Utama</div>
+
+                    <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="{{ route('admin.homepage.edit') }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 012.828 0L20.586 7.828a2 2 0 010 2.828L11.828 19.172a2 2 0 01-1.414.586H7v-3.414a2 2 0 01.586-1.414l8.586-8.586z"></path></svg>
+                        <span>Kelola Homepage</span>
+                    </a>
+
+                    <a href="{{ route('admin.pages.index') }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-blue-600 text-white font-semibold transition shadow-md shadow-blue-600/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <span>Kelola Pages / Service</span>
+                    </a>
+                </nav>
             </div>
 
-            <div>
-                <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Image</label>
-                @if($page->image)
-                    <div class="mb-3">
-                        <img src="{{ asset('storage/' . $page->image) }}"
-                             alt="{{ $page->title }}"
-                             class="h-32 w-auto rounded-lg border border-gray-200 object-cover">
+            <div class="p-4 border-t border-slate-800">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-red-400 hover:bg-red-500/10 hover:text-red-300 transition text-sm font-semibold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="flex-1 flex flex-col min-w-0">
+            <header class="bg-white border-b border-slate-200 h-20 px-6 md:px-10 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('admin.pages.index') }}" class="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-xl transition" title="Kembali">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    </a>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold text-slate-900">Edit Page: {{ $page->title }}</h1>
+                        <p class="text-xs text-slate-500">Perbarui konten halaman service atau portfolio</p>
                     </div>
-                @endif
-                <input type="file" name="image" id="image"
-                       class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 @error('image') border-red-400 @enderror">
-                <p class="mt-1 text-xs text-gray-400">Format: jpg, jpeg, png. Maks: 2MB. Kosongkan jika tidak ingin mengubah.</p>
-                @error('image')
-                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
+                </div>
 
-            <div>
-                <label for="desc" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <textarea name="desc" id="desc" rows="4"
-                          class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('desc') border-red-400 @enderror"
-                          placeholder="Deskripsi singkat halaman (akan tampil di landing page)">{{ old('desc', $page->desc) }}</textarea>
-                @error('desc')
-                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-4 py-2.5 rounded-xl transition">
+                        <span>Lihat Website Utama</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+            </header>
 
-            <div>
-                <label for="text" class="block text-sm font-medium text-gray-700 mb-1">Konten Lengkap</label>
-                <textarea name="text" id="text" rows="8"
-                          class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('text') border-red-400 @enderror"
-                          placeholder="Konten lengkap halaman (akan tampil di halaman detail)">{{ old('text', $page->text) }}</textarea>
-                @error('text')
-                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
+            <main class="p-6 md:p-10 max-w-5xl space-y-6">
+                <form action="{{ route('admin.pages.update', $page) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    @csrf
+                    @method('PUT')
 
-            <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200">
-                <a href="{{ route('admin.pages.index') }}"
-                   class="inline-flex items-center px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition duration-150">
-                    Batal
-                </a>
-                <button type="submit"
-                        class="inline-flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-sm transition duration-150">
-                    <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                    </svg>
-                    Update Page
-                </button>
-            </div>
-        </form>
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200/80 flex items-center gap-2.5">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            <h2 class="text-base font-bold text-slate-800">Form Edit Page</h2>
+                        </div>
+
+                        <div class="p-6 md:p-8 space-y-6">
+                            <div>
+                                <label for="title" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Title <span class="text-red-500">*</span></label>
+                                <input type="text"
+                                       id="title"
+                                       name="title"
+                                       value="{{ old('title', $page->title) }}"
+                                       required
+                                       placeholder="Masukkan judul halaman..."
+                                       class="w-full px-4 py-3 rounded-xl border @error('title') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50/50 text-slate-800 text-sm transition">
+                                @error('title')
+                                    <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Image</label>
+                                @if($page->image)
+                                    <div class="mb-4">
+                                        <img src="{{ asset('storage/' . $page->image) }}" alt="{{ $page->title }}" class="h-32 w-auto rounded-xl border border-slate-200 object-cover shadow-sm">
+                                    </div>
+                                @endif
+                                <div class="flex flex-col items-center justify-center border-2 border-dashed border-slate-200 hover:border-blue-500 rounded-2xl p-6 bg-slate-50/50 transition cursor-pointer relative group">
+                                    <input type="file" name="image" id="image" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                    <div class="p-3 bg-blue-50 text-blue-600 rounded-xl mb-3 group-hover:scale-110 transition">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                    <p class="text-xs font-bold text-slate-700">Pilih file gambar atau seret ke sini</p>
+                                    <p class="text-[11px] text-slate-400 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB</p>
+                                </div>
+                                @error('image')
+                                    <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="description" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Description (Singkat)</label>
+                                <textarea id="description"
+                                          name="description"
+                                          rows="3"
+                                          placeholder="Deskripsi singkat halaman (akan tampil di landing page)..."
+                                          class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50/50 text-slate-800 text-sm transition">{{ old('description', $page->desc) }}</textarea>
+                                @error('description')
+                                    <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="content" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Konten Lengkap</label>
+                                <textarea id="content"
+                                          name="content"
+                                          rows="8"
+                                          placeholder="Tuliskan isi konten lengkap halaman..."
+                                          class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50/50 text-slate-800 text-sm transition">{{ old('content', $page->content) }}</textarea>
+                                @error('content')
+                                    <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-3 pt-2">
+                        <a href="{{ route('admin.pages.index') }}" class="px-6 py-3.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 font-bold text-sm transition">
+                            Batal
+                        </a>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-8 rounded-xl shadow-md hover:shadow-lg transition duration-200 text-sm flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Update Page</span>
+                        </button>
+                    </div>
+                </form>
+            </main>
+
+            <footer class="bg-white border-t border-slate-200 py-4 px-6 md:px-10 text-xs text-slate-400 text-center mt-auto">
+                <p>&copy; {{ date('Y') }} Admin Panel Company Profile. All rights reserved.</p>
+            </footer>
+        </div>
     </div>
-@endsection
+</body>
+</html>
 

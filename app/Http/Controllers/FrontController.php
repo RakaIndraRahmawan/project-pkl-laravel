@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Homepage;
 use App\Models\Page;
-use App\Models\ContactMessage; // Impor model jika kamu buat tabel pesan kontak
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -14,13 +14,38 @@ class FrontController extends Controller
      */
     public function index()
     {
-        // Mengambil data homepage, jika belum ada akan dibuatkan data default kosong agar Blade tidak error
-        $homepage = Homepage::firstOrCreate(['id' => 1]);
+        $setting = Homepage::firstOrCreate(['id' => 1]);
+        $homepage = $setting;
+        $about = null; 
 
-        // Ambil data semua pages/layanan & portofolio
         $pages = Page::latest()->get();
+        $services = $pages;
 
-        return view('welcome', compact('homepage', 'pages'));
+        return view('welcome', compact('setting', 'homepage', 'about', 'services', 'pages'));
+    }
+
+    /**
+     * Menampilkan halaman khusus Portofolio.
+     */
+    public function portfolio()
+    {
+        $setting = Homepage::firstOrCreate(['id' => 1]);
+        
+        // Mengambil data portofolio dari tabel pages
+        // Jika tabel pages kamu memiliki kolom 'type', bisa difilter: Page::where('type', 'portfolio')->latest()->get();
+        $portfolios = Page::latest()->get();
+
+        return view('pages.portfolio', compact('setting', 'portfolios'));
+    }
+
+    /**
+     * Menampilkan halaman khusus Kontak.
+     */
+    public function contact()
+    {
+        $setting = Homepage::firstOrCreate(['id' => 1]);
+
+        return view('pages.contact', compact('setting'));
     }
 
     /**
@@ -34,7 +59,6 @@ class FrontController extends Controller
     
     public function showPage($slug)
     {
-        // Untuk melihat detail layanan/portofolio secara spesifik
         $page = Page::where('slug', $slug)->firstOrFail();
 
         return view('pages.show', compact('page'));
@@ -46,7 +70,7 @@ class FrontController extends Controller
     }
 
     /**
-     * Memproses pengiriman pesan dari form "Hubungi Kami" di landing page.
+     * Memproses pengiriman pesan dari form "Hubungi Kami".
      */
     public function sendMessage(Request $request)
     {
@@ -56,8 +80,9 @@ class FrontController extends Controller
             'message' => 'required|string',
         ]);
 
-        // Jika kamu sudah membuat model & tabel ContactMessage:
-        // ContactMessage::create($validated);
+        if (class_exists(ContactMessage::class)) {
+            ContactMessage::create($validated);
+        }
 
         return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim! Kami akan segera menghubungi Anda.');
     }

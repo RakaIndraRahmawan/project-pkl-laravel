@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -21,25 +22,77 @@ class AuthController extends Controller
     }
 
     /**
+     * Tampilkan halaman register
+     */
+    public function showRegister()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Proses registrasi akun baru
+     */
+    public function register(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        // Buat username unik otomatis dari nama (ditambah suffix jika duplikat)
+        $baseUsername = Str::slug($data['name'], '') !== '' ? Str::slug($data['name'], '') : Str::before($data['email'], '@');
+        $username = $baseUsername;
+        $counter = 1;
+        while (User::where('username', $username)->exists()) {
+            $username = $baseUsername . $counter;
+            $counter++;
+        }
+
+        $user = User::create([
+            'username' => $username,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'], // Hashed otomatis oleh casts model
+        ]);
+
+        Auth::login($user);
+
+return redirect()->route('dashboard');
+    }
+
+    /**
      * Proses login dengan proteksi Rate Limiting & Audit Log
      */
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|string|email',
-            'password' => 'required|string',
+            'login' => ['required_without:email', 'string'], // Email atau Username
+            'email' => ['required_without:login', 'string'], // Email
+            'password' => ['required', 'string'],
         ]);
 
-        // Kunci pembatas berdasarkan Username & IP Address
-        $throttleKey = Str::lower($request->input('email')) . '|' . $request->ip();
+        // Nilai login (mendukung field 'login' lama dan field 'email' baru)
+        $loginInput = $request->input('login') ?? $request->input('email');
+
+        // Kunci pembatas berdasarkan Login & IP Address
+        $throttleKey = Str::lower($loginInput) . '|' . $request->ip();
 
         // Cek apakah user terlalu banyak mencoba login (Maksimal 5x dalam 60 detik)
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
             throw ValidationException::withMessages([
-                'email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
+                'login' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
             ]);
         }
+
+        // Deteksi apakah input berupa email atau username biasa
+        $fieldType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $credentials = [
+            $fieldType => $loginInput,
+            'password' => $request->input('password'),
+        ];
 
         // Cek kredensial
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -61,7 +114,7 @@ class AuthController extends Controller
         RateLimiter::hit($throttleKey);
 
         throw ValidationException::withMessages([
-            'username' => __('auth.failed'),
+            'login' => __('auth.failed'),
         ]);
     }
 
@@ -75,7 +128,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect('/');
     }
 }
-
