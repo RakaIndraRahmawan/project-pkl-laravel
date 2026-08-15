@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('about_title')->nullable();
             $table->text('about_desc')->nullable();
             $table->text('about_image')->nullable();
+            $table->date('about_date_founded')->nullable();
+            $table->integer('about_projects_finished')->nullable();
 
             // Contact & Social Media Section
             $table->string('contact_email')->nullable();

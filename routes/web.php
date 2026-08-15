@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\HomepageController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Page;
 use Illuminate\Support\Facades\Route;
@@ -14,8 +15,11 @@ Route::get('/', [FrontController::class, 'index'])->name('home');
 // Halaman Khusus Portofolio (Opsional jika ingin halaman terpisah)
 Route::get('/portfolio', [FrontController::class, 'portfolio'])->name('portfolio');
 
+// Halaman Khusus About
+Route::get('/about', [FrontController::class, 'about'])->name('about');
+
 // Halaman & Process Kontak
-Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [FrontController::class, 'sendMessage'])->name('contact.send');
 
 // Halaman Detail Service / Portfolio berdasarkan Slug

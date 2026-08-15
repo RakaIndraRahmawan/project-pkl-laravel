@@ -27,7 +27,7 @@ class HomepageController extends Controller
             'hero_subtitle' => 'nullable|string',
             'hero_image'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'about_title'   => 'nullable|string|max:255',
-            'about_desc'    => 'nullable|string',
+            'about_desc'    => 'nullable|string|min:500',
             'about_image'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'contact_email' => 'nullable|email|max:255',
             'contact_phone' => 'nullable|string|max:50',

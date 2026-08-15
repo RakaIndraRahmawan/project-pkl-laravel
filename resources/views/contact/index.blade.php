@@ -67,7 +67,7 @@
                 <a href="#home" class="hover:text-blue-600 transition">Home</a>
                 <a href="{{ route('about') }}" class="hover:text-blue-600 transition">Tentang Kami</a>
                 <a href="#services" class="hover:text-blue-600 transition">Layanan & Portofolio</a>
-                <a href="{{ route('contact') }}" class="hover:text-blue-600 transition">Kontak</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Kontak</a>
             </div>
 
             <!-- Login Admin -->
@@ -99,143 +99,7 @@
             </div>
         </div>
     </header>
-
-    <!-- 2. HERO SECTION -->
-    <section id="home" class="hero-gradient text-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            
-            <!-- Kiri: Headline & CTA -->
-            <div class="md:col-span-7 space-y-6 text-left">
-                
-                <!-- Tagline Badge -->
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-badge text-xs font-medium text-white shadow-sm">
-                    <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                    Solusi Digital Masa Depan
-                </div>
-
-                <!-- Main Title -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
-                    {{ $setting->hero_title ?? 'Welcome to Our Website' }}
-                </h1>
-                
-                <!-- Subtitle -->
-                <p class="text-blue-100/90 text-sm md:text-base font-normal leading-relaxed max-w-lg">
-                    {{ $setting->hero_subtitle ?? 'We provide the best digital services to accelerate your business growth with modern technology.' }}
-                </p>
-
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap items-center gap-4 pt-2">
-                    <a href="#contact" class="bg-white text-blue-600 hover:bg-blue-50 font-bold px-7 py-3 rounded-xl text-xs transition shadow-lg">
-                        Hubungi Kami
-                    </a>
-                    <a href="#services" class="btn-glass text-white font-bold px-7 py-3 rounded-xl text-xs transition">
-                        Lihat Layanan
-                    </a>
-                </div>
-            </div>
-
-            <!-- Kanan: Image Showcase dengan Floating Badges -->
-            <div class="md:col-span-5 relative flex justify-center md:justify-end">
-                <div class="relative w-full max-w-md my-4">
-                    
-                    <!-- Main Hero Image -->
-                    <div class="rounded-2xl overflow-hidden shadow-2xl border border-white/20">
-                        <img 
-                            src="{{ isset($setting->hero_image) ? asset('storage/' . $setting->hero_image) : 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80' }}" 
-                            alt="Hero Visual" 
-                            class="w-full h-72 sm:h-80 md:h-[340px] object-cover"
-                        />
-                    </div>
-
-                    <!-- Floating Badge Top Left (Performa Tinggi) -->
-                    <div class="floating-card absolute -top-5 -left-4 sm:-left-8 rounded-2xl p-3.5 flex items-center gap-3 border border-white/80">
-                        <div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-500 flex items-center justify-center font-bold text-sm">
-                            ⚡
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-semibold text-slate-400">Performa Tinggi</p>
-                            <p class="text-xs font-bold text-slate-800">Sangat Cepat & Aman</p>
-                        </div>
-                    </div>
-
-                    <!-- Floating Badge Bottom Right (Kepuasan Klien) -->
-                    <div class="floating-card absolute -bottom-5 -right-4 sm:-right-6 rounded-2xl p-3.5 flex items-center gap-3 border border-white/80">
-                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-500 flex items-center justify-center font-bold text-sm">
-                            ⭐
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-semibold text-slate-400">Kepuasan Klien</p>
-                            <p class="text-xs font-bold text-slate-800">100% Terpercaya</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 3. SECTION ABOUT US -->
-    <section id="about" class="w-full py-20 px-6 md:px-12 bg-white">
-        <div class="max-w-7xl mx-auto space-y-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <img 
-                        src="{{ isset($setting->about_image) ? asset('storage/' . $setting->about_image) : 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80' }}" 
-                        alt="Tentang Kami" 
-                        class="rounded-3xl shadow-lg w-full object-cover h-80 md:h-[380px] border border-slate-100"
-                    />
-                </div>
-                <div class="space-y-5">
-                    <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full">Tentang Perusahaan</span>
-                    <h2 class="text-3xl font-extrabold text-slate-900 leading-snug">
-                       {{ optional($about ?? null)->title ?? $setting->about_title ?? 'Mengenal Lebih Dekat Perusahaan Kami' }}
-                    </h2>
-                    <div class="text-slate-600 leading-relaxed text-sm">
-                       {!! optional($about ?? null)->content ?? optional($about ?? null)->description ?? $setting->about_description ?? 'Kami adalah penyedia layanan solusi digital...' !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. SECTION LAYANAN & PORTOFOLIO -->
-    <section id="services" class="w-full py-20 px-6 md:px-12 bg-slate-50 border-t border-slate-100">
-        <div class="max-w-7xl mx-auto space-y-12">
-            <div class="text-center space-y-3 max-w-2xl mx-auto">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/60 px-3.5 py-1.5 rounded-full">Layanan & Karya Kami</span>
-                <h2 class="text-3xl font-extrabold text-slate-900">Solusi & Portofolio Unggulan</h2>
-                <p class="text-slate-600 text-sm">Kami menghadirkan produk dan layanan berkualitas untuk membantu perkembangan bisnis Anda.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($services as $item)
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between">
-                        <div>
-                            @if(!empty($item->image))
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
-                            @endif
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
-                            <p class="text-slate-600 text-sm line-clamp-3 mb-4">
-                                {{ Str::limit(strip_tags($item->content), 120) }}
-                            </p>
-                        </div>
-                        <div>
-                            <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
-                                <span>Baca Selengkapnya</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-                @empty
-                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
-                        <p class="text-slate-500 text-sm">Belum ada data layanan atau portofolio yang ditambahkan.</p>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </section>
-
+    
     <!-- 5. SECTION KONTAK -->
     <section id="contact" class="w-full py-20 px-6 md:px-12 bg-white border-t border-slate-100">
         <div class="max-w-3xl mx-auto space-y-8">
@@ -294,7 +158,7 @@
                     <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Pesan Anda</label>
                     <textarea id="message" 
                               name="message" 
-                              rows="4" 
+                              rows="7" 
                               required 
                               placeholder="Tuliskan pesan Anda di sini..." 
                               class="w-full px-4 py-3 rounded-xl border @error('message') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">{{ old('message') }}</textarea>

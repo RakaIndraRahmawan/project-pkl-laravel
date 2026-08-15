@@ -24,6 +24,14 @@ class FrontController extends Controller
         return view('welcome', compact('setting', 'homepage', 'about', 'services', 'pages'));
     }
 
+    public function about()
+    {
+        $setting = Homepage::firstOrCreate(['id' => 1]);
+        $about = $setting;
+
+        return view('about.index', compact('setting', 'about'));
+    }
+
     /**
      * Menampilkan halaman khusus Portofolio.
      */

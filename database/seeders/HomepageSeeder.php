@@ -18,9 +18,11 @@ class HomepageSeeder extends Seeder
             'hero_subtitle' => 'We provide the best services for you.',
             'hero_image' => 'sample-image.jpg',
             
-            'about_title' => 'About Us',
-            'about_desc' => 'We are a team of passionate individuals dedicated to delivering high-quality services to our clients. Our mission is to exceed expectations and create lasting relationships.',
-            'about_image' => 'sample-about-image.jpg',
+            'about_title' => 'Mengenal lebih dekat tentang kami',
+            'about_desc' => 'We are a passionate team committed to delivering innovative solutions and outstanding service. With years of industry experience, we help businesses grow through integrity, quality, and a strong customer-focused approach. Our goal is to build lasting partnerships and create meaningful impact. We believe in continuous improvement, collaboration, and turning challenges into opportunities. Your success is at the heart of everything we do, and we strive to exceed expectations every step of the way.',
+            'about_image' => 'sample-image.jpg',
+            'about_date_founded' => '2020-01-01',
+            'about_projects_finished' => 150,
         
             'contact_email' => 'contact@ourwebsite.com',
             'contact_phone' => '+1 (123) 456-7890',
