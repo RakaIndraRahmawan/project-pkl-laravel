@@ -64,9 +64,10 @@
             
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-slate-600">
-                <a href="#home" class="hover:text-blue-600 transition">Home</a>
+                <a href="{{ route('home') }}" class="hover:text-blue-600 transition">Home</a>
                 <a href="{{ route('about') }}" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="#services" class="hover:text-blue-600 transition">Layanan & Portofolio</a>
+                <a href="{{ route('services') }}" class="hover:text-blue-600 transition">Layanan</a>
+                <a href="{{ route('portfolio') }}" class="hover:text-blue-600 transition">Portfolio</a>
                 <a href="{{ route('contact') }}" class="hover:text-blue-600 transition">Kontak</a>
             </div>
 
@@ -88,10 +89,11 @@
 
         <!-- Menu Mobile -->
         <div x-show="mobileMenuOpen" x-cloak @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
-            <a href="#home" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
+            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
             <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Tentang Kami</a>
-            <a href="#services" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan & Portofolio</a>
-            <a href="#contact" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
+            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan</a>
+            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Portfolio</a>
+            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
             <div class="pt-2 border-t border-slate-100">
                 <a href="{{ route('login') }}" class="block text-center text-xs font-bold text-blue-600 bg-blue-50 py-2.5 rounded-full border border-blue-100">
                     Login Admin
@@ -100,44 +102,50 @@
         </div>
     </header>
 
-    <section id="about" class="w-full py-20 px-6 md:px-12 bg-white">
-        <div class="max-w-7xl mx-auto space-y-12">
+    <section id="about" class="w-full pt-12 bg-white">
+        <div class="max-w-7xl mx-auto space-y-12 mb-12">
             <div class="text-center space-y-3 text-slate-800 text-3xl font-extrabold">
-                <h2>Tentang Kami</h2>
+                <h2>Services</h2>
+                <p class="text-slate-500 text-sm font-medium tracking-wide">Discover our range of professional services. We provide high-quality solutions to meet your business needs.</p>
             </div>
-            <div class="relative">
-                <img 
-                    src="{{ isset($about->about_image) ? asset('storage/' . $about->about_image) : 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80' }}" 
-                    alt="Tentang Kami" 
-                    class="rounded-3xl shadow-lg w-full object-cover h-80 md:h-[380px] border border-slate-100"
-                />
-            </div>
-            <div class="space-y-5">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full">Tentang Perusahaan</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 leading-snug">
-                    {{ optional($about ?? null)->about_title ?? $setting->about_title ?? 'Mengenal Lebih Dekat Perusahaan Kami' }}
-                </h2>
-                <div class="text-slate-600 leading-relaxed text-sm">
-                    {!! optional($about ?? null)->about_desc ?? optional($about ?? null)->description ?? $setting->about_description ?? 'Kami adalah penyedia layanan solusi digital...' !!}
-                </div>
-            </div>
-
-            <!-- <div class="text-center space-y-3 text-slate-800 text-3xl font-extrabold">
-                <h2>Mengapa Memilih Kami</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-lg transition">
-                    @php
-                        $years = optional($about)->about_date_founded 
-                            ? \Carbon\Carbon::parse($about->about_date_founded)->diffInYears(now()) 
-                            : null;
-                    @endphp
-                    <div class="text-slate-900 mb-4 text-4xl font-extrabold">
-                        {{ $years ? $years . ' tahun' : '-' }}
+        </div>
+            <div class="w-full bg-slate-50 py-12 border-y border-slate-200/80">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        @forelse($services as $item)
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between">
+                                <div>
+                                    @if(!empty($item->image))
+                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
+                                    @endif
+                                    <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
+                                    <p class="text-slate-600 text-sm line-clamp-3 mb-4">
+                                        {{ Str::limit(strip_tags($item->content), 120) }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
+                                        <span>Baca Selengkapnya</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+                                <p class="text-slate-500 text-sm">Belum ada data layanan yang ditambahkan.</p>
+                            </div>
+                        @endforelse
                     </div>
-                    <h3 class="text-lg font-semibold text-slate-800 mb-2">Pengalaman</h3>
                 </div>
-            </div> -->
+            </div>
+            <div class="text-center py-16 px-4">
+                <h3 class="text-lg font-medium text-slate-800 mb-2">Let’s build something great</h3>
+                <p class="text-slate-500 text-sm font-medium tracking-wide mb-5">Have a project in mind? We’d love to hear about it.</p>
+                <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-900 underline underline-offset-4 hover:text-slate-600">
+                    Contact our team →
+                </a>
+            </div>
+        <!-- </div> -->
     </section>
 
     <!-- FOOTER -->

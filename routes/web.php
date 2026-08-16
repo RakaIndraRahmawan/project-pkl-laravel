@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\HomepageController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Page;
@@ -12,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 // Halaman Utama (Landing Page)
 Route::get('/', [FrontController::class, 'index'])->name('home');
 
-// Halaman Khusus Portofolio (Opsional jika ingin halaman terpisah)
-Route::get('/portfolio', [FrontController::class, 'portfolio'])->name('portfolio');
-
 // Halaman Khusus About
-Route::get('/about', [FrontController::class, 'about'])->name('about');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+// Halaman Khusus Service (Opsional jika ingin halaman terpisah)
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
+Route::get('/servicesportfolio', [FrontController::class, 'servicesPortfolio'])->name('servicesportfolio');
+
+// Halaman Khusus Portofolio (Opsional jika ingin halaman terpisah)
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
 
 // Halaman & Process Kontak
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

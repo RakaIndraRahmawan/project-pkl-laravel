@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ContactMessage;
 
 class ContactController extends Controller
 {
@@ -11,7 +12,7 @@ class ContactController extends Controller
         return view('contact.index');
     }
 
-    public function send()
+    public function send(Request $request)
     {
         $validated = $request->validate([
             'name'    => 'required|string|max:255',

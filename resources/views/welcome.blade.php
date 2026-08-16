@@ -64,9 +64,10 @@
             
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-slate-600">
-                <a href="#home" class="hover:text-blue-600 transition">Home</a>
+                <a href="{{ route('home') }}" class="hover:text-blue-600 transition">Home</a>
                 <a href="{{ route('about') }}" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="#services" class="hover:text-blue-600 transition">Layanan & Portofolio</a>
+                <a href="{{ route('services') }}" class="hover:text-blue-600 transition">Layanan</a>
+                <a href="{{ route('portfolio') }}" class="hover:text-blue-600 transition">Portfolio</a>
                 <a href="{{ route('contact') }}" class="hover:text-blue-600 transition">Kontak</a>
             </div>
 
@@ -88,10 +89,11 @@
 
         <!-- Menu Mobile -->
         <div x-show="mobileMenuOpen" x-cloak @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
-            <a href="#home" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
-            <a href="#about" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Tentang Kami</a>
-            <a href="#services" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan & Portofolio</a>
-            <a href="#contact" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
+            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
+            <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Tentang Kami</a>
+            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan</a>
+            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Portfolio</a>
+            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
             <div class="pt-2 border-t border-slate-100">
                 <a href="{{ route('login') }}" class="block text-center text-xs font-bold text-blue-600 bg-blue-50 py-2.5 rounded-full border border-blue-100">
                     Login Admin
@@ -215,7 +217,8 @@
                             @if(!empty($item->image))
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
                             @endif
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/60 px-3.5 py-1.5 rounded-full">{{ $item->tag ?? 'Kategori Tidak Tersedia' }}</span>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 mt-2">{{ $item->title }}</h3>
                             <p class="text-slate-600 text-sm line-clamp-3 mb-4">
                                 {{ Str::limit(strip_tags($item->content), 120) }}
                             </p>

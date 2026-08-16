@@ -24,14 +24,6 @@ class FrontController extends Controller
         return view('welcome', compact('setting', 'homepage', 'about', 'services', 'pages'));
     }
 
-    public function about()
-    {
-        $setting = Homepage::firstOrCreate(['id' => 1]);
-        $about = $setting;
-
-        return view('about.index', compact('setting', 'about'));
-    }
-
     /**
      * Menampilkan halaman khusus Portofolio.
      */
@@ -60,9 +52,12 @@ class FrontController extends Controller
      * Menampilkan detail halaman/layanan/portofolio berdasarkan slug.
      */
 
-    public function testPage()
+    public function servicesPortfolio()
     {
-        return view('pages.show', ['page' => Page::first()]);
+        $about = Homepage::firstOrCreate(['id' => 1]);
+        $services = Page::latest()->get();
+
+        return view('pages.index', ['page' => Page::first()], compact('about', 'services'));
     }
     
     public function showPage($slug)
@@ -77,21 +72,21 @@ class FrontController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Memproses pengiriman pesan dari form "Hubungi Kami".
-     */
-    public function sendMessage(Request $request)
-    {
-        $validated = $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'required|email|max:255',
-            'message' => 'required|string',
-        ]);
+    // /**
+    //  * Memproses pengiriman pesan dari form "Hubungi Kami".
+    //  */
+    // public function sendMessage(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'name'    => 'required|string|max:255',
+    //         'email'   => 'required|email|max:255',
+    //         'message' => 'required|string',
+    //     ]);
 
-        if (class_exists(ContactMessage::class)) {
-            ContactMessage::create($validated);
-        }
+    //     if (class_exists(ContactMessage::class)) {
+    //         ContactMessage::create($validated);
+    //     }
 
-        return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim! Kami akan segera menghubungi Anda.');
-    }
+    //     return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim! Kami akan segera menghubungi Anda.');
+    // }
 }

@@ -64,9 +64,10 @@
             
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-slate-600">
-                <a href="#home" class="hover:text-blue-600 transition">Home</a>
+                <a href="{{ route('home') }}" class="hover:text-blue-600 transition">Home</a>
                 <a href="{{ route('about') }}" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="#services" class="hover:text-blue-600 transition">Layanan & Portofolio</a>
+                <a href="{{ route('services') }}" class="hover:text-blue-600 transition">Layanan</a>
+                <a href="{{ route('portfolio') }}" class="hover:text-blue-600 transition">Portfolio</a>
                 <a href="{{ route('contact') }}" class="hover:text-blue-600 transition">Kontak</a>
             </div>
 
@@ -88,10 +89,11 @@
 
         <!-- Menu Mobile -->
         <div x-show="mobileMenuOpen" x-cloak @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
-            <a href="#home" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
+            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
             <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Tentang Kami</a>
-            <a href="#services" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan & Portofolio</a>
-            <a href="#contact" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
+            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan</a>
+            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Portfolio</a>
+            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
             <div class="pt-2 border-t border-slate-100">
                 <a href="{{ route('login') }}" class="block text-center text-xs font-bold text-blue-600 bg-blue-50 py-2.5 rounded-full border border-blue-100">
                     Login Admin
