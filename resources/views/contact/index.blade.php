@@ -126,7 +126,7 @@
                             </div>
                             <div>
                                 <p class="text-[11px] text-blue-200 uppercase font-semibold">Facebook</p>
-                                <a href="{{ $setting->contact_facebook ?? '#' }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
+                                <a href="https://{{ ltrim($setting->contact_facebook ?? 'facebook.com', 'https://') }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
                                     {{ $setting->contact_facebook ?? 'facebook.com' }}
                                 </a>
                             </div>
@@ -138,7 +138,7 @@
                             </div>
                             <div>
                                 <p class="text-[11px] text-blue-200 uppercase font-semibold">Instagram</p>
-                                <a href="{{ $setting->contact_instagram ?? '#' }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
+                                <a href="https://{{ ltrim($setting->contact_instagram ?? 'instagram.com', 'https://') }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
                                     {{ $setting->contact_instagram ?? 'instagram.com' }}
                                 </a>
                             </div>
@@ -150,7 +150,7 @@
                             </div>
                             <div>
                                 <p class="text-[11px] text-blue-200 uppercase font-semibold">Twitter</p>
-                                <a href="{{ $setting->contact_twitter ?? '#' }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
+                                <a href="https://{{ ltrim($setting->contact_twitter ?? 'twitter.com', 'https://') }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
                                     {{ $setting->contact_twitter ?? 'twitter.com' }}
                                 </a>
                             </div>
