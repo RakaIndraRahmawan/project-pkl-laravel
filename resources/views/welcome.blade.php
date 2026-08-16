@@ -238,79 +238,14 @@
             </div>
         </div>
     </section>
-
-    <!-- 5. SECTION KONTAK -->
-    <section id="contact" class="w-full py-20 px-6 md:px-12 bg-white border-t border-slate-100">
-        <div class="max-w-3xl mx-auto space-y-8">
-            <div class="text-center space-y-3">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full">Hubungi Kami</span>
-                <h2 class="text-3xl font-extrabold text-slate-900">Mari Berdiskusi Dengan Kami</h2>
-                <p class="text-slate-600 text-sm">Punya pertanyaan atau berminat menjalin kerja sama? Kirimkan pesan Anda melalui form berikut.</p>
-            </div>
-
-            <!-- Alert Pesan Sukses -->
-            @if(session('success'))
-                <div class="p-4 text-sm text-emerald-800 bg-emerald-100 rounded-xl border border-emerald-200 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span>{{ session('success') }}</span>
-                </div>
-            @endif
-
-            <!-- Form Kontak -->
-            <form action="{{ route('contact.send') }}" method="POST" class="bg-slate-50 p-8 rounded-3xl border border-slate-200/80 space-y-5">
-                @csrf
-
-                <!-- Input Nama -->
-                <div>
-                    <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Nama Lengkap</label>
-                    <input type="text" 
-                           id="name" 
-                           name="name" 
-                           value="{{ old('name') }}" 
-                           required 
-                           placeholder="Masukkan nama Anda" 
-                           class="w-full px-4 py-3 rounded-xl border @error('name') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">
-                    @error('name')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Input Email -->
-                <div>
-                    <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Alamat Email</label>
-                    <input type="email" 
-                           id="email" 
-                           name="email" 
-                           value="{{ old('email') }}" 
-                           required 
-                           placeholder="nama@email.com" 
-                           class="w-full px-4 py-3 rounded-xl border @error('email') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">
-                    @error('email')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Input Pesan -->
-                <div>
-                    <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Pesan Anda</label>
-                    <textarea id="message" 
-                              name="message" 
-                              rows="4" 
-                              required 
-                              placeholder="Tuliskan pesan Anda di sini..." 
-                              class="w-full px-4 py-3 rounded-xl border @error('message') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">{{ old('message') }}</textarea>
-                    @error('message')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Tombol Submit -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl transition duration-200 shadow-md hover:shadow-lg text-sm">
-                    Kirim Pesan
-                </button>
-            </form>
+    <!-- 5. SECTION CONTACT -->
+    <section id="contact" class="w-full py-8 px-6 md:px-12 bg-white">
+        <div class="text-center py-16 px-4">
+            <h3 class="text-lg font-medium text-slate-800 mb-2">Let’s build something great</h3>
+            <p class="text-slate-500 text-sm font-medium tracking-wide mb-5">Have a project in mind? We’d love to hear about it.</p>
+            <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-900 underline underline-offset-4 hover:text-slate-600">
+                Contact our team →
+            </a>
         </div>
     </section>
 

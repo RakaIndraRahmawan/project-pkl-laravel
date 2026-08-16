@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <!-- Tailwind CSS & Alpine.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -103,77 +106,106 @@
     </header>
     
     <!-- 5. SECTION KONTAK -->
-    <section id="contact" class="w-full py-20 px-6 md:px-12 bg-white border-t border-slate-100">
-        <div class="max-w-3xl mx-auto space-y-8">
-            <div class="text-center space-y-3">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full">Hubungi Kami</span>
-                <h2 class="text-3xl font-extrabold text-slate-900">Mari Berdiskusi Dengan Kami</h2>
-                <p class="text-slate-600 text-sm">Punya pertanyaan atau berminat menjalin kerja sama? Kirimkan pesan Anda melalui form berikut.</p>
+    <section id="contact" class="w-full py-20 px-16 md:px-12 bg-white border-t border-slate-100">
+        <div class="text-center space-y-3 mb-16">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full">Hubungi Kami</span>
+            <h2 class="text-3xl font-extrabold text-slate-900">Mari Berdiskusi Dengan Kami</h2>
+            <p class="text-slate-600 text-sm">Punya pertanyaan atau berminat menjalin kerja sama? Kirimkan pesan Anda melalui form berikut.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-7xl mx-auto">
+            <!-- Info Kontak Kiri -->
+            <div class="md:col-span-5 bg-gradient-to-br from-blue-600 via-indigo-600 to-indigo-800 text-white rounded-3xl p-8 md:p-10 shadow-xl flex flex-col justify-between space-y-8 relative overflow-hidden">
+                <div class="space-y-6 relative z-10">
+                    <h3 class="text-2xl font-bold">Mari Terhubung</h3>
+                    <p class="text-blue-100 text-sm leading-relaxed">Tim profesional kami selalu siap memberikan solusi teknis terbaik untuk kebutuhan bisnis Anda.</p>
+
+                    <div class="space-y-5 text-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                                <i class="fab fa-facebook-f text-white-200"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-blue-200 uppercase font-semibold">Facebook</p>
+                                <a href="{{ $setting->contact_facebook ?? '#' }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
+                                    {{ $setting->contact_facebook ?? 'Facebook' }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                                <i class="fab fa-instagram text-white-200"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-blue-200 uppercase font-semibold">Instagram</p>
+                                <a href="{{ $setting->contact_instagram ?? '#' }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
+                                    {{ $setting->contact_instagram ?? 'Instagram' }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                                <i class="fab fa-twitter text-white-200"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-blue-200 uppercase font-semibold">Twitter</p>
+                                <a href="{{ $setting->contact_twitter ?? '#' }}" target="_blank" class="font-bold text-white hover:text-blue-200 transition">
+                                    {{ $setting->contact_twitter ?? 'Twitter' }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">✉</div>
+                            <div>
+                                <p class="text-[11px] text-blue-200 uppercase font-semibold">Email</p>
+                                <p class="font-bold text-white">{{ $setting->contact_email ?? 'info@company.com' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">📍</div>
+                            <div>
+                                <p class="text-[11px] text-blue-200 uppercase font-semibold">Alamat</p>
+                                <p class="font-bold text-white">{{ $setting->contact_address ?? 'Jakarta, Indonesia' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if(isset($setting->contact_phone))
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $setting->contact_phone) }}" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold py-4 rounded-2xl transition shadow-lg text-sm relative z-10">
+                        WhatsApp: {{ $setting->contact_phone }}
+                    </a>
+                @endif
             </div>
 
-            <!-- Alert Pesan Sukses -->
-            @if(session('success'))
-                <div class="p-4 text-sm text-emerald-800 bg-emerald-100 rounded-xl border border-emerald-200 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span>{{ session('success') }}</span>
-                </div>
-            @endif
+            <!-- Form Kontak Kanan -->
+            <div class="md:col-span-7 bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-200/80 flex flex-col justify-center">
+                <form action="#" method="POST" class="space-y-5">
+                    @csrf
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Nama Lengkap</label>
+                        <input type="text" name="name" placeholder="Masukkan nama Anda" class="w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600/40 text-sm transition" required>
+                    </div>
 
-            <!-- Form Kontak -->
-            <form action="{{ route('contact.send') }}" method="POST" class="bg-slate-50 p-8 rounded-3xl border border-slate-200/80 space-y-5">
-                @csrf
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Email</label>
+                        <input type="email" name="email" placeholder="email@domain.com" class="w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600/40 text-sm transition" required>
+                    </div>
 
-                <!-- Input Nama -->
-                <div>
-                    <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Nama Lengkap</label>
-                    <input type="text" 
-                           id="name" 
-                           name="name" 
-                           value="{{ old('name') }}" 
-                           required 
-                           placeholder="Masukkan nama Anda" 
-                           class="w-full px-4 py-3 rounded-xl border @error('name') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">
-                    @error('name')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Pesan</label>
+                        <textarea name="message" rows="4" placeholder="Tuliskan detail kebutuhan proyek Anda..." class="w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600/40 text-sm transition" required></textarea>
+                    </div>
 
-                <!-- Input Email -->
-                <div>
-                    <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Alamat Email</label>
-                    <input type="email" 
-                           id="email" 
-                           name="email" 
-                           value="{{ old('email') }}" 
-                           required 
-                           placeholder="nama@email.com" 
-                           class="w-full px-4 py-3 rounded-xl border @error('email') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">
-                    @error('email')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-600/20 transition text-sm">
+                        Kirim Pesan
+                    </button>
+                </form>
+            </div>
 
-                <!-- Input Pesan -->
-                <div>
-                    <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Pesan Anda</label>
-                    <textarea id="message" 
-                              name="message" 
-                              rows="7" 
-                              required 
-                              placeholder="Tuliskan pesan Anda di sini..." 
-                              class="w-full px-4 py-3 rounded-xl border @error('message') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-800 text-sm transition">{{ old('message') }}</textarea>
-                    @error('message')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Tombol Submit -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl transition duration-200 shadow-md hover:shadow-lg text-sm">
-                    Kirim Pesan
-                </button>
-            </form>
         </div>
     </section>
 
