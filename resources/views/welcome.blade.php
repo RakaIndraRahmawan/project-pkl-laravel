@@ -1,258 +1,460 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $setting->company_name ?? 'Company Profile' }}</title>
-    
+    <title>{{ $setting->company_name ?? 'Company Profile' }} - Beranda</title>
+
     <!-- Google Fonts: Inter & Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- Tailwind CSS & Alpine.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
-
-        /* Smooth Gradient Background Hero */
-        .hero-gradient {
-            background: linear-gradient(115deg, #2563eb 0%, #3b82f6 35%, #4f46e5 70%, #6366f1 100%);
+        body {
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Glassmorphism Badge */
+        h1, h2, h3, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .site-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .glass-badge {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        /* Glassmorphism Button */
         .btn-glass {
             background: rgba(255, 255, 255, 0.18);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
+
         .btn-glass:hover {
             background: rgba(255, 255, 255, 0.28);
         }
 
-        /* Floating Badge Design */
-        .floating-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+        .glass-card-overlay {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased" x-data="{ mobileMenuOpen: false }">
 
-    <!-- 1. NAVBAR -->
-    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+<body
+    class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+    x-data="{ mobileMenuOpen: false }"
+>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <header class="site-header fixed top-0 left-0 w-full z-50">
+
         <nav class="max-w-7xl mx-auto py-4 px-6 md:px-12 flex justify-between items-center">
-            
+
             <!-- Logo -->
-            <a href="#home" class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-extrabold text-sm flex items-center justify-center shadow-md shadow-blue-500/20">
+            <a
+                href="{{ route('home') }}"
+                class="flex items-center gap-2.5 group"
+            >
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-extrabold text-sm flex items-center justify-center shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
                     CP
                 </div>
-                <span class="text-xl font-extrabold tracking-tight text-blue-600">CompanyProfile</span>
+
+                <span class="text-xl font-extrabold tracking-tight text-white">
+                    {{ $setting->company_name ?? 'Company Profile' }}
+                </span>
             </a>
-            
+
+
             <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-slate-600">
-                <a href="{{ route('home') }}" class="hover:text-blue-600 transition">Home</a>
-                <a href="{{ route('about') }}" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="{{ route('services') }}" class="hover:text-blue-600 transition">Layanan</a>
-                <a href="{{ route('portfolio') }}" class="hover:text-blue-600 transition">Portfolio</a>
-                <a href="{{ route('contact') }}" class="hover:text-blue-600 transition">Kontak</a>
+            <div class="hidden md:flex items-center space-x-10 text-sm font-semibold text-slate-300">
+
+                <a
+                    href="{{ route('home') }}"
+                    class="{{ request()->routeIs('home') ? 'text-blue-400 font-bold' : 'hover:text-blue-400' }} transition-colors"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="{{ route('about') }}"
+                    class="{{ request()->routeIs('about') ? 'text-blue-400 font-bold' : 'hover:text-blue-400' }} transition-colors"
+                >
+                    Tentang Kami
+                </a>
+
+                <a
+                    href="{{ route('services') }}"
+                    class="{{ request()->routeIs('services') ? 'text-blue-400 font-bold' : 'hover:text-blue-400' }} transition-colors"
+                >
+                    Layanan
+                </a>
+
+                <!-- PORTFOLIO -->
+                <a
+                    href="{{ route('portfolio') }}"
+                    class="{{ request()->routeIs('portfolio') ? 'text-blue-400 font-bold' : 'hover:text-blue-400' }} transition-colors"
+                >
+                    Portfolio
+                </a>
+
+                <a
+                    href="{{ route('contact') }}"
+                    class="{{ request()->routeIs('contact') ? 'text-blue-400 font-bold' : 'hover:text-blue-400' }} transition-colors"
+                >
+                    Kontak
+                </a>
+
             </div>
+
 
             <!-- Login Admin -->
             <div class="hidden md:block">
-                <a href="{{ route('login') }}" class="text-xs font-bold text-blue-600 bg-blue-50/80 hover:bg-blue-100 border border-blue-100 px-5 py-2.5 rounded-full transition">
+
+                <a
+                    href="{{ Route::has('login') ? route('login') : '#' }}"
+                    class="text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 px-5 py-2.5 rounded-full transition hover:scale-105 backdrop-blur-md inline-block"
+                >
                     Login Admin
                 </a>
+
             </div>
 
-            <!-- Mobile Hamburger Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg text-slate-600 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+
+            <!-- Mobile Hamburger -->
+            <button
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                class="md:hidden p-2 rounded-lg text-white hover:text-blue-400 focus:outline-none"
+            >
+
+                <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path
+                        x-show="!mobileMenuOpen"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                    ></path>
+
+                    <path
+                        x-show="mobileMenuOpen"
+                        x-cloak
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                    ></path>
+
                 </svg>
+
             </button>
+
         </nav>
 
+
         <!-- Menu Mobile -->
-        <div x-show="mobileMenuOpen" x-cloak @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
-            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
-            <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Tentang Kami</a>
-            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan</a>
-            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Portfolio</a>
-            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
-            <div class="pt-2 border-t border-slate-100">
-                <a href="{{ route('login') }}" class="block text-center text-xs font-bold text-blue-600 bg-blue-50 py-2.5 rounded-full border border-blue-100">
+        <div
+            x-show="mobileMenuOpen"
+            x-cloak
+            @click.away="mobileMenuOpen = false"
+            class="md:hidden bg-slate-900 border-b border-slate-800 px-6 py-4 space-y-3"
+        >
+
+            <a
+                href="{{ route('home') }}"
+                class="block text-slate-200 hover:text-blue-400 font-medium text-sm py-1"
+            >
+                Home
+            </a>
+
+            <a
+                href="{{ route('about') }}"
+                class="block text-slate-200 hover:text-blue-400 font-medium text-sm py-1"
+            >
+                Tentang Kami
+            </a>
+
+            <a
+                href="{{ route('services') }}"
+                class="block text-slate-200 hover:text-blue-400 font-medium text-sm py-1"
+            >
+                Layanan
+            </a>
+
+            <!-- PORTFOLIO MOBILE -->
+            <a
+                href="{{ route('portfolio') }}"
+                class="block text-slate-200 hover:text-blue-400 font-medium text-sm py-1"
+            >
+                Portfolio
+            </a>
+
+            <a
+                href="{{ route('contact') }}"
+                class="block text-slate-200 hover:text-blue-400 font-medium text-sm py-1"
+            >
+                Kontak
+            </a>
+
+            <div class="pt-2 border-t border-slate-800">
+
+                <a
+                    href="{{ Route::has('login') ? route('login') : '#' }}"
+                    class="block text-center text-xs font-bold text-white bg-blue-600 py-2.5 rounded-xl"
+                >
                     Login Admin
                 </a>
+
             </div>
+
         </div>
+
     </header>
 
-    <!-- 2. HERO SECTION -->
-    <section id="home" class="hero-gradient text-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            
-            <!-- Kiri: Headline & CTA -->
-            <div class="md:col-span-7 space-y-6 text-left">
-                
-                <!-- Tagline Badge -->
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-badge text-xs font-medium text-white shadow-sm">
-                    <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                    Solusi Digital Masa Depan
-                </div>
 
-                <!-- Main Title -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
-                    {{ $setting->hero_title ?? 'Welcome to Our Website' }}
-                </h1>
-                
-                <!-- Subtitle -->
-                <p class="text-blue-100/90 text-sm md:text-base font-normal leading-relaxed max-w-lg">
-                    {{ $setting->hero_subtitle ?? 'We provide the best digital services to accelerate your business growth with modern technology.' }}
-                </p>
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="relative min-h-screen w-full text-white pt-28 pb-12 px-6 md:px-12 flex flex-col justify-between overflow-hidden bg-slate-950">
 
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap items-center gap-4 pt-2">
-                    <a href="#contact" class="bg-white text-blue-600 hover:bg-blue-50 font-bold px-7 py-3 rounded-xl text-xs transition shadow-lg">
-                        Hubungi Kami
-                    </a>
-                    <a href="#services" class="btn-glass text-white font-bold px-7 py-3 rounded-xl text-xs transition">
-                        Lihat Layanan
-                    </a>
-                </div>
-            </div>
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/30 rounded-full blur-[130px] pointer-events-none animate-pulse"></div>
 
-            <!-- Kanan: Image Showcase dengan Floating Badges -->
-            <div class="md:col-span-5 relative flex justify-center md:justify-end">
-                <div class="relative w-full max-w-md my-4">
-                    
-                    <!-- Main Hero Image -->
-                    <div class="rounded-2xl overflow-hidden shadow-2xl border border-white/20">
-                        <img 
-                            src="{{ isset($setting->hero_image) ? asset('storage/' . $setting->hero_image) : 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80' }}" 
-                            alt="Hero Visual" 
-                            class="w-full h-72 sm:h-80 md:h-[340px] object-cover"
-                        />
+        <div class="absolute top-1/2 right-0 w-80 h-80 bg-indigo-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+
+        <div class="absolute inset-0 z-0">
+
+            @php
+                $heroImg = !empty($setting->hero_image)
+                    ? asset('storage/' . str_replace('public/', '', $setting->hero_image))
+                    : 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1920&q=80';
+            @endphp
+
+            <img
+                src="{{ $heroImg }}"
+                alt="Hero Background"
+                class="w-full h-full object-cover object-center"
+            />
+
+            <div class="absolute inset-0 bg-slate-950/60 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+
+        </div>
+
+
+        <div class="max-w-7xl mx-auto my-auto w-full relative z-10 py-12">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+
+
+                <!-- HERO LEFT -->
+                <div class="lg:col-span-8 space-y-6 text-left">
+
+                    <div
+                        data-aos="fade-down"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-badge text-xs font-semibold text-white shadow-sm"
+                    >
+
+                        <span class="flex h-2 w-2 relative">
+
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+
+                        </span>
+
+                        Solusi Digital Masa Depan
+
                     </div>
 
-                    <!-- Floating Badge Top Left (Performa Tinggi) -->
-                    <div class="floating-card absolute -top-5 -left-4 sm:-left-8 rounded-2xl p-3.5 flex items-center gap-3 border border-white/80">
-                        <div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-500 flex items-center justify-center font-bold text-sm">
+
+                    <h1
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                        class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] max-w-3xl"
+                    >
+                        {{ $setting->hero_title ?? 'Selamat Datang di Website Kami' }}
+                    </h1>
+
+
+                    <p
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                        class="text-slate-200 text-base md:text-xl leading-relaxed max-w-2xl"
+                    >
+                        {{ $setting->hero_subtitle ?? 'Kami menyediakan layanan digital terbaik untuk mempercepat pertumbuhan bisnis Anda.' }}
+                    </p>
+
+
+                    <div
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                        class="flex flex-wrap items-center gap-4 pt-2"
+                    >
+
+                        <a
+                            href="{{ route('contact') }}"
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-8 py-4 rounded-xl text-sm transition shadow-xl shadow-blue-600/30 hover:scale-105"
+                        >
+                            Hubungi Kami
+                        </a>
+
+                        <a
+                            href="{{ route('services') }}"
+                            class="btn-glass text-white font-bold px-8 py-4 rounded-xl text-sm transition hover:scale-105"
+                        >
+                            Lihat Layanan
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HERO RIGHT -->
+                <div
+                    data-aos="fade-left"
+                    data-aos-delay="400"
+                    class="lg:col-span-4 hidden lg:flex justify-end"
+                >
+
+                    <div class="glass-card-overlay p-6 rounded-3xl space-y-4 max-w-sm text-slate-100 animate-float">
+
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/30 text-blue-300 flex items-center justify-center font-bold text-lg">
                             ⚡
                         </div>
-                        <div>
-                            <p class="text-[10px] font-semibold text-slate-400">Performa Tinggi</p>
-                            <p class="text-xs font-bold text-slate-800">Sangat Cepat & Aman</p>
-                        </div>
-                    </div>
 
-                    <!-- Floating Badge Bottom Right (Kepuasan Klien) -->
-                    <div class="floating-card absolute -bottom-5 -right-4 sm:-right-6 rounded-2xl p-3.5 flex items-center gap-3 border border-white/80">
-                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-500 flex items-center justify-center font-bold text-sm">
-                            ⭐
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-semibold text-slate-400">Kepuasan Klien</p>
-                            <p class="text-xs font-bold text-slate-800">100% Terpercaya</p>
-                        </div>
+                        <h3 class="font-bold text-lg text-white">
+                            Layanan Terpercaya
+                        </h3>
+
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Jelajahi halaman profil dan portofolio kami untuk mengetahui solusi terbaik bagi Anda.
+                        </p>
+
+                        <a
+                            href="{{ route('about') }}"
+                            class="inline-block text-xs font-bold text-blue-400 hover:underline"
+                        >
+                            Pelajari Tentang Kami &rarr;
+                        </a>
+
                     </div>
 
                 </div>
+
             </div>
 
         </div>
+
     </section>
 
-    <!-- 3. SECTION ABOUT US -->
-    <section id="about" class="w-full py-20 px-6 md:px-12 bg-white">
-        <div class="max-w-7xl mx-auto space-y-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <img 
-                        src="{{ isset($setting->about_image) ? asset('storage/' . $setting->about_image) : 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80' }}" 
-                        alt="Tentang Kami" 
-                        class="rounded-3xl shadow-lg w-full object-cover h-80 md:h-[380px] border border-slate-100"
-                    />
-                </div>
-                <div class="space-y-5">
-                    <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full">Tentang Perusahaan</span>
-                    <h2 class="text-3xl font-extrabold text-slate-900 leading-snug">
-                       {{ optional($about ?? null)->title ?? $setting->about_title ?? 'Mengenal Lebih Dekat Perusahaan Kami' }}
-                    </h2>
-                    <div class="text-slate-600 leading-relaxed text-sm">
-                       {!! optional($about ?? null)->content ?? optional($about ?? null)->description ?? $setting->about_description ?? 'Kami adalah penyedia layanan solusi digital...' !!}
-                    </div>
-                </div>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="w-full bg-slate-900 text-slate-400 py-8 px-6 border-t border-slate-800">
+
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+
+            <p>
+                &copy; {{ date('Y') }}
+                {{ $setting->company_name ?? 'Company Profile' }}.
+                All rights reserved.
+            </p>
+
+
+            <div class="flex items-center space-x-6 text-slate-300">
+
+                <a
+                    href="{{ route('home') }}"
+                    class="hover:text-blue-400 transition-colors"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="{{ route('about') }}"
+                    class="hover:text-blue-400 transition-colors"
+                >
+                    Tentang Kami
+                </a>
+
+                <a
+                    href="{{ route('services') }}"
+                    class="hover:text-blue-400 transition-colors"
+                >
+                    Layanan
+                </a>
+
+                <a
+                    href="{{ route('portfolio') }}"
+                    class="hover:text-blue-400 transition-colors"
+                >
+                    Portfolio
+                </a>
+
+                <a
+                    href="{{ route('contact') }}"
+                    class="hover:text-blue-400 transition-colors"
+                >
+                    Kontak
+                </a>
+
             </div>
-        </div>
-    </section>
 
-    <!-- 4. SECTION LAYANAN & PORTOFOLIO -->
-    <section id="services" class="w-full py-20 px-6 md:px-12 bg-slate-50 border-t border-slate-100">
-        <div class="max-w-7xl mx-auto space-y-12">
-            <div class="text-center space-y-3 max-w-2xl mx-auto">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/60 px-3.5 py-1.5 rounded-full">Layanan & Karya Kami</span>
-                <h2 class="text-3xl font-extrabold text-slate-900">Solusi & Portofolio Unggulan</h2>
-                <p class="text-slate-600 text-sm">Kami menghadirkan produk dan layanan berkualitas untuk membantu perkembangan bisnis Anda.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($services as $item)
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between">
-                        <div>
-                            @if(!empty($item->image))
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
-                            @endif
-                            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/60 px-3.5 py-1.5 rounded-full">{{ $item->tag ?? 'Kategori Tidak Tersedia' }}</span>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2 mt-2">{{ $item->title }}</h3>
-                            <p class="text-slate-600 text-sm line-clamp-3 mb-4">
-                                {{ Str::limit(strip_tags($item->content), 120) }}
-                            </p>
-                        </div>
-                        <div>
-                            <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
-                                <span>Baca Selengkapnya</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-                @empty
-                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
-                        <p class="text-slate-500 text-sm">Belum ada data layanan atau portofolio yang ditambahkan.</p>
-                    </div>
-                @endforelse
-            </div>
         </div>
-    </section>
-    <!-- 5. SECTION CONTACT -->
-    <section id="contact" class="w-full py-8 px-6 md:px-12 bg-white">
-        <div class="text-center py-16 px-4">
-            <h3 class="text-lg font-medium text-slate-800 mb-2">Let’s build something great</h3>
-            <p class="text-slate-500 text-sm font-medium tracking-wide mb-5">Have a project in mind? We’d love to hear about it.</p>
-            <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-900 underline underline-offset-4 hover:text-slate-600">
-                Contact our team →
-            </a>
-        </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="w-full bg-slate-900 text-slate-400 py-6 text-center text-xs">
-        <p>&copy; {{ date('Y') }} {{ $setting->company_name ?? 'Company Profile' }}. All rights reserved.</p>
     </footer>
+
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
 
 </body>
 </html>
