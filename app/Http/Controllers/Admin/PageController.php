@@ -12,7 +12,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::latest()->paginate(10); // Menggunakan paginate agar rapi jika data banyak
+        $pages = Page::latest()->paginate(10);
         return view('admin.pages.index', compact('pages'));
     }
 
@@ -23,25 +23,24 @@ class PageController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'nullable|string',
-            'content' => 'nullable|string',
+            'content'     => 'nullable|string',
         ]);
 
-        $data['desc'] = $data['description'] ?? null;
-        unset($data['description']);
-
-        $data['text'] = $data['content'] ?? null;
-        unset($data['text']);
-
-        // Membuat slug unik (mencegah bentrok jika ada judul yang sama)
         $slug = Str::slug($request->title);
         $count = Page::where('slug', 'LIKE', "{$slug}%")->count();
-        $data['slug'] = $count ? "{$slug}-{$count}" : $slug;
 
-        // Handle upload gambar
+        $data = [
+            'title'   => $request->title,
+            'slug'    => $count ? "{$slug}-{$count}" : $slug,
+            'desc'    => $request->description,
+            'content' => $request->content,
+        ];
+
+        // Handle Upload Gambar
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('pages', 'public');
         }
@@ -58,19 +57,20 @@ class PageController extends Controller
 
     public function update(Request $request, Page $page)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'nullable|string',
-            'content' => 'nullable|string',
+            'content'     => 'nullable|string',
         ]);
 
-        $data['desc'] = $data['description'] ?? $page->desc;
-        unset($data['description']);
+        $data = [
+            'title'   => $request->title,
+            'desc'    => $request->description,
+            'content' => $request->content,
+        ];
 
-        $data['content'] = $data['content'] ?? $page->content;
-
-        // Perbarui slug hanya jika judul berubah
+        // Update Slug jika Judul Berubah
         if ($page->title !== $request->title) {
             $slug = Str::slug($request->title);
             $count = Page::where('slug', 'LIKE', "{$slug}%")->where('id', '!=', $page->id)->count();
@@ -92,7 +92,6 @@ class PageController extends Controller
 
     public function destroy(Page $page)
     {
-        // Hapus file gambar terkait sebelum menghapus record dari database
         if ($page->image && Storage::disk('public')->exists($page->image)) {
             Storage::disk('public')->delete($page->image);
         }
