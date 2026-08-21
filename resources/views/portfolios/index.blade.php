@@ -109,43 +109,42 @@
                 <p class="text-slate-500 text-sm font-medium tracking-wide">Discover our range of professional portfolio projects. We provide high-quality solutions to meet your business needs.</p>
             </div>
         </div>
-            <div class="w-full bg-slate-50 py-12 border-y border-slate-200/80">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        @forelse($portfolios as $item)
-                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between">
-                                <div>
-                                    @if(!empty($item->image))
-                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
-                                    @endif
-                                    <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
-                                    <p class="text-slate-600 text-sm line-clamp-3 mb-4">
-                                        {{ Str::limit(strip_tags($item->content), 120) }}
-                                    </p>
-                                </div>
-                                <div>
-                                    <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
-                                        <span>Baca Selengkapnya</span>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </a>
-                                </div>
+        <div class="w-full bg-slate-50 py-12 border-y border-slate-200/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @forelse($portfolios as $item)
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between">
+                            <div>
+                                @if(!empty($item->image))
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
+                                @endif
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
+                                <p class="text-slate-600 text-sm line-clamp-3 mb-4">
+                                    {{ Str::limit(strip_tags($item->content), 120) }}
+                                </p>
                             </div>
-                        @empty
-                            <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
-                                <p class="text-slate-500 text-sm">Belum ada data layanan yang ditambahkan.</p>
+                            <div>
+                                <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
+                                    <span>Baca Selengkapnya</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </a>
                             </div>
-                        @endforelse
-                    </div>
+                        </div>
+                    @empty
+                        <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+                            <p class="text-slate-500 text-sm">Belum ada data layanan yang ditambahkan.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
-            <div class="text-center py-16 px-4">
-                <h3 class="text-lg font-medium text-slate-800 mb-2">Let’s build something great</h3>
-                <p class="text-slate-500 text-sm font-medium tracking-wide mb-5">Have a project in mind? We’d love to hear about it.</p>
-                <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-900 underline underline-offset-4 hover:text-slate-600">
-                    Contact our team →
-                </a>
-            </div>
-        <!-- </div> -->
+        </div>
+        <div class="text-center py-16 px-4">
+            <h3 class="text-lg font-medium text-slate-800 mb-2">Let’s build something great</h3>
+            <p class="text-slate-500 text-sm font-medium tracking-wide mb-5">Have a project in mind? We’d love to hear about it.</p>
+            <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-900 underline underline-offset-4 hover:text-slate-600">
+                Contact our team →
+            </a>
+        </div>
     </section>
 
     <!-- FOOTER -->
