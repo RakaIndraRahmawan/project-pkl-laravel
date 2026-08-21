@@ -782,6 +782,14 @@
                         duration-300
                     "
                 >
+                @php   
+                    $years = !empty($about?->about_date_founded)
+                        ? (int) round(
+                            \Carbon\Carbon::parse($about->about_date_founded)
+                                ->diffInYears(now())
+                        )
+                        : null; 
+                @endphp
 
                     <div
                         class="
@@ -790,7 +798,7 @@
                             text-blue-400
                         "
                     >
-                        5+
+                        {{ $years ? $years . '+' : '5+' }}
                     </div>
 
                     <div
@@ -1697,17 +1705,6 @@
                 gap-6
             "
         >
-
-            @php
-
-                $years = !empty($about?->about_date_founded)
-                    ? \Carbon\Carbon::parse(
-                        $about->about_date_founded
-                    )->diffInYears(now())
-                    : null;
-
-            @endphp
-
 
             <!-- EXPERIENCE -->
 
