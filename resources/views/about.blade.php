@@ -34,7 +34,6 @@
     >
 
     <style>
-
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -50,7 +49,6 @@
             display: none !important;
         }
 
-
         /* =====================================================
            NAVBAR
         ===================================================== */
@@ -61,7 +59,6 @@
             -webkit-backdrop-filter: blur(18px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
 
         /* =====================================================
            GLASS CARD
@@ -81,7 +78,6 @@
             border: 1px solid rgba(255, 255, 255, 0.10);
         }
 
-
         /* =====================================================
            GLOW
         ===================================================== */
@@ -92,13 +88,11 @@
                 0 0 100px rgba(79, 70, 229, 0.08);
         }
 
-
         /* =====================================================
            FLOAT ANIMATION
         ===================================================== */
 
         @keyframes float {
-
             0%,
             100% {
                 transform: translateY(0);
@@ -107,13 +101,11 @@
             50% {
                 transform: translateY(-10px);
             }
-
         }
 
         .animate-float {
             animation: float 5s ease-in-out infinite;
         }
-
 
         /* =====================================================
            GRID BACKGROUND
@@ -134,13 +126,11 @@
             background-size: 45px 45px;
         }
 
-
         /* =====================================================
            HERO ORB
         ===================================================== */
 
         @keyframes pulseGlow {
-
             0%,
             100% {
                 opacity: .35;
@@ -151,20 +141,17 @@
                 opacity: .6;
                 transform: scale(1.08);
             }
-
         }
 
         .hero-orb {
             animation: pulseGlow 7s ease-in-out infinite;
         }
 
-
         /* =====================================================
            FLOATING LINE
         ===================================================== */
 
         @keyframes lineMove {
-
             0% {
                 transform: translateX(-30px);
                 opacity: .15;
@@ -178,13 +165,11 @@
                 transform: translateX(30px);
                 opacity: .15;
             }
-
         }
 
         .moving-line {
             animation: lineMove 5s ease-in-out infinite;
         }
-
     </style>
 
 </head>
@@ -642,7 +627,6 @@
         "
     >
 
-
         <!-- HERO TEXT -->
 
         <div
@@ -746,11 +730,9 @@
                     text-slate-300
                 "
             >
-
                 Mengenal lebih dekat visi, pengalaman, dan dedikasi
                 kami dalam menghadirkan solusi digital berkualitas
                 tinggi untuk kebutuhan bisnis Anda.
-
             </p>
 
 
@@ -782,14 +764,6 @@
                         duration-300
                     "
                 >
-                @php   
-                    $years = !empty($about?->about_date_founded)
-                        ? (int) round(
-                            \Carbon\Carbon::parse($about->about_date_founded)
-                                ->diffInYears(now())
-                        )
-                        : null; 
-                @endphp
 
                     <div
                         class="
@@ -798,7 +772,7 @@
                             text-blue-400
                         "
                     >
-                        {{ $years ? $years . '+' : '5+' }}
+                        5+
                     </div>
 
                     <div
@@ -900,7 +874,6 @@
         </div>
 
 
-
         <!-- =================================================
              FLOATING TECHNOLOGY CARDS
         ================================================== -->
@@ -916,7 +889,6 @@
                 md:block
             "
         >
-
 
             <!-- LEFT CARD -->
 
@@ -991,7 +963,6 @@
                 </div>
 
             </div>
-
 
 
             <!-- CENTER CODE -->
@@ -1115,7 +1086,6 @@
             </div>
 
 
-
             <!-- RIGHT CARD -->
 
             <div
@@ -1193,7 +1163,6 @@
         </div>
 
 
-
         <!-- SCROLL INDICATOR -->
 
         <div
@@ -1217,7 +1186,6 @@
             >
                 Kenali Kami Lebih Dekat
             </span>
-
 
             <div
                 class="
@@ -1322,11 +1290,9 @@
 
 
                 @php
-
                     $imageSrc = !empty($about?->about_image)
                         ? asset('storage/' . $about->about_image)
                         : 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=85';
-
                 @endphp
 
 
@@ -1410,7 +1376,6 @@
                 </div>
 
             </div>
-
 
 
             <!-- CONTENT -->
@@ -1705,6 +1670,20 @@
                 gap-6
             "
         >
+
+            <!-- =================================================
+                 PERHITUNGAN TAHUN PENGALAMAN
+            ================================================== -->
+
+            @php
+                $years = !empty($about?->about_date_founded)
+                    ? (int) round(
+                        \Carbon\Carbon::parse($about->about_date_founded)
+                            ->diffInYears(now())
+                    )
+                    : null;
+            @endphp
+
 
             <!-- EXPERIENCE -->
 
@@ -2127,13 +2106,11 @@
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script>
-
     AOS.init({
         duration: 800,
         once: true,
         offset: 80
     });
-
 </script>
 
 
