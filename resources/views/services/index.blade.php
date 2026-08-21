@@ -1,155 +1,121 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $setting->company_name ?? 'Company Profile' }}</title>
-    
-    <!-- Google Fonts: Inter & Montserrat -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS & Alpine.js -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
-
-        /* Smooth Gradient Background Hero */
-        .hero-gradient {
-            background: linear-gradient(115deg, #2563eb 0%, #3b82f6 35%, #4f46e5 70%, #6366f1 100%);
-        }
-
-        /* Glassmorphism Badge */
-        .glass-badge {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-        }
-
-        /* Glassmorphism Button */
-        .btn-glass {
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .btn-glass:hover {
-            background: rgba(255, 255, 255, 0.28);
-        }
-
-        /* Floating Badge Design */
-        .floating-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan - Company Profile</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- AOS Animation CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  
+  <style>
+    /* Custom Glow Effect for Cards */
+    .glow-card:hover {
+      box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.3);
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased" x-data="{ mobileMenuOpen: false }">
+<body class="bg-[#080d1a] text-white font-sans antialiased selection:bg-blue-600 selection:text-white overflow-x-hidden">
 
-    <!-- 1. NAVBAR -->
-    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
-        <nav class="max-w-7xl mx-auto py-4 px-6 md:px-12 flex justify-between items-center">
-            
-            <!-- Logo -->
-            <a href="#home" class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-extrabold text-sm flex items-center justify-center shadow-md shadow-blue-500/20">
-                    CP
-                </div>
-                <span class="text-xl font-extrabold tracking-tight text-blue-600">CompanyProfile</span>
-            </a>
-            
-            <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-slate-600">
-                <a href="{{ route('home') }}" class="hover:text-blue-600 transition">Home</a>
-                <a href="{{ route('about') }}" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="{{ route('services') }}" class="hover:text-blue-600 transition">Layanan</a>
-                <a href="{{ route('portfolio') }}" class="hover:text-blue-600 transition">Portfolio</a>
-                <a href="{{ route('contact') }}" class="hover:text-blue-600 transition">Kontak</a>
-            </div>
+  <!-- Navigation Bar -->
+  <nav data-aos="fade-down" data-aos-duration="800" class="flex items-center justify-between px-8 py-5 max-w-7xl mx-auto border-b border-slate-800/60">
+    <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
+      <div class="bg-blue-600 text-white font-bold text-sm px-2.5 py-1.5 rounded-lg group-hover:scale-105 transition-transform duration-300">CP</div>
+      <span class="font-bold text-lg tracking-tight">Company<span class="text-blue-500">Profile</span></span>
+    </a>
+    
+    <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+      <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-blue-500 font-semibold' : 'hover:text-white transition-colors' }}">Home</a>
+      <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'text-blue-500 font-semibold' : 'hover:text-white transition-colors' }}">Tentang Kami</a>
+      <a href="{{ route('services') }}" class="{{ request()->routeIs('services') ? 'text-blue-500 font-semibold' : 'hover:text-white transition-colors' }}">Layanan</a>
+      <a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio') ? 'text-blue-500 font-semibold' : 'hover:text-white transition-colors' }}">Portfolio</a>
+      <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-blue-500 font-semibold' : 'hover:text-white transition-colors' }}">Kontak</a>
+    </div>
 
-            <!-- Login Admin -->
-            <div class="hidden md:block">
-                <a href="{{ route('login') }}" class="text-xs font-bold text-blue-600 bg-blue-50/80 hover:bg-blue-100 border border-blue-100 px-5 py-2.5 rounded-full transition">
-                    Login Admin
-                </a>
-            </div>
+    <a href="{{ route('login') }}" class="border border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:border-slate-500 px-5 py-2 rounded-full text-xs font-semibold text-slate-300 hover:text-white transition-all duration-300 hover:scale-105">
+      Login Admin
+    </a>
+  </nav>
 
-            <!-- Mobile Hamburger Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg text-slate-600 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </nav>
+  <!-- Hero Section -->
+  <section class="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+    <!-- Grid Background & Animated Glow Effect -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293715_1px,transparent_1px),linear-gradient(to_bottom,#1f293715_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
 
-        <!-- Menu Mobile -->
-        <div x-show="mobileMenuOpen" x-cloak @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
-            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Home</a>
-            <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Tentang Kami</a>
-            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Layanan</a>
-            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Portfolio</a>
-            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block text-slate-600 hover:text-blue-600 font-medium text-sm py-1">Kontak</a>
-            <div class="pt-2 border-t border-slate-100">
-                <a href="{{ route('login') }}" class="block text-center text-xs font-bold text-blue-600 bg-blue-50 py-2.5 rounded-full border border-blue-100">
-                    Login Admin
-                </a>
-            </div>
+    <!-- Badge -->
+    <div data-aos="zoom-in" data-aos-delay="200" class="inline-flex items-center space-x-2 bg-slate-900/80 border border-slate-800 rounded-full px-4 py-1.5 mb-8 backdrop-blur-md">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-xs font-medium text-slate-300 tracking-wide">Layanan Kami</span>
+    </div>
+
+    <!-- Title & Subtitle -->
+    <h1 data-aos="fade-up" data-aos-delay="300" class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+      Layanan <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-indigo-500 bg-clip-text text-transparent">Profesional</span>
+    </h1>
+    <p data-aos="fade-up" data-aos-delay="400" class="max-w-2xl text-slate-400 text-sm md:text-base leading-relaxed mb-12">
+      Jelajahi berbagai layanan profesional kami. Kami menyediakan solusi berkualitas tinggi untuk memenuhi kebutuhan transformasi digital bisnis Anda.
+    </p>
+
+    <!-- Services Grid / Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full z-10 px-4">
+      
+      <!-- Card 1 -->
+      <div data-aos="fade-up" data-aos-delay="500" class="glow-card bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 text-left backdrop-blur-md hover:border-blue-500/50 hover:-translate-y-2 transition-all duration-300 group">
+        <div class="w-12 h-12 bg-blue-950/50 border border-blue-800/50 text-blue-400 rounded-xl flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+          &lt;/&gt;
         </div>
-    </header>
+        <h3 class="font-bold text-lg text-white mb-1 group-hover:text-blue-400 transition-colors">Web Development</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Modern & Scalable website modern untuk performa bisnis terbaik.</p>
+      </div>
 
-    <section id="about" class="w-full pt-12 bg-white">
-        <div class="max-w-7xl mx-auto space-y-12 mb-12">
-            <div class="text-center space-y-3 text-slate-800 text-3xl font-extrabold">
-                <h2>Services</h2>
-                <p class="text-slate-500 text-sm font-medium tracking-wide">Discover our range of professional services. We provide high-quality solutions to meet your business needs.</p>
-            </div>
+      <!-- Card 2 -->
+      <div data-aos="fade-up" data-aos-delay="600" class="glow-card bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 text-left backdrop-blur-md hover:border-indigo-500/50 hover:-translate-y-2 transition-all duration-300 group">
+        <div class="w-12 h-12 bg-indigo-950/50 border border-indigo-800/50 text-indigo-400 rounded-xl flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+          ✦
         </div>
-            <div class="w-full bg-slate-50 py-12 border-y border-slate-200/80">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        @forelse($services as $item)
-                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between">
-                                <div>
-                                    @if(!empty($item->image))
-                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover rounded-xl mb-4">
-                                    @endif
-                                    <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
-                                    <p class="text-slate-600 text-sm line-clamp-3 mb-4">
-                                        {{ Str::limit(strip_tags($item->content), 120) }}
-                                    </p>
-                                </div>
-                                <div>
-                                    <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
-                                        <span>Baca Selengkapnya</span>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </a>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
-                                <p class="text-slate-500 text-sm">Belum ada data layanan yang ditambahkan.</p>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-            <div class="text-center py-16 px-4">
-                <h3 class="text-lg font-medium text-slate-800 mb-2">Let’s build something great</h3>
-                <p class="text-slate-500 text-sm font-medium tracking-wide mb-5">Have a project in mind? We’d love to hear about it.</p>
-                <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-900 underline underline-offset-4 hover:text-slate-600">
-                    Contact our team →
-                </a>
-            </div>
-        <!-- </div> -->
-    </section>
+        <h3 class="font-bold text-lg text-white mb-1 group-hover:text-indigo-400 transition-colors">Digital Solution</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Creative & Innovative strategi digital terpadu untuk percepatan bisnis.</p>
+      </div>
 
-    <!-- FOOTER -->
-    <footer class="w-full bg-slate-900 text-slate-400 py-6 text-center text-xs">
-        <p>&copy; {{ date('Y') }} {{ $setting->company_name ?? 'Company Profile' }}. All rights reserved.</p>
-    </footer>
+      <!-- Card 3 -->
+      <div data-aos="fade-up" data-aos-delay="700" class="glow-card bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 text-left backdrop-blur-md hover:border-emerald-500/50 hover:-translate-y-2 transition-all duration-300 group">
+        <div class="w-12 h-12 bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 rounded-xl flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+          ⚡
+        </div>
+        <h3 class="font-bold text-lg text-white mb-1 group-hover:text-emerald-400 transition-colors">UI/UX Design</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Desain antarmuka intuitif dan ramah pengguna untuk aplikasi Anda.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section data-aos="fade-up" data-aos-offset="100" class="border-t border-slate-800/60 py-16 text-center">
+    <h2 class="text-2xl font-bold text-white mb-2">Mari Buat Sesuatu yang Luar Biasa</h2>
+    <p class="text-slate-400 text-sm mb-6">Punya ide proyek? Kami siap membantunya menjadi kenyataan.</p>
+    <a href="{{ route('contact') }}" class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 group">
+      Hubungi Tim Kami <span class="ml-1 group-hover:translate-x-2 transition-transform duration-300">→</span>
+    </a>    
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/40 py-6 text-center text-xs text-slate-500">
+    © 2026 Company Profile. All rights reserved.
+  </footer>
+
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true, // Animasi hanya berjalan 1 kali
+      duration: 800, // Durasi animasi (ms)
+      easing: 'ease-out-cubic',
+    });
+  </script>
+
 </body>
+</html>
