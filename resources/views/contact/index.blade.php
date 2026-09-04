@@ -7,10 +7,12 @@
 
   <!-- Tailwind CSS & FontAwesome Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- AOS Animation CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<!-- Alpine JS -->
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js">
+</script>
 
   <style>
     body {
@@ -18,28 +20,315 @@
       color: #ffffff;
       font-family: 'Inter', sans-serif;
     }
+
+    body {
+    background-color: #0b0f19;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.site-header {
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between bg-[#0b0f19] text-white overflow-x-hidden">
+<body
+    class="min-h-screen flex flex-col justify-between bg-[#0b0f19] text-white overflow-x-hidden"
+    x-data="{ mobileMenuOpen: false }"
+>
 
-<!-- NAVBAR -->
-<nav class="flex items-center justify-between px-12 py-6 border-b border-gray-800/60 max-w-7xl mx-auto w-full" data-aos="fade-down" data-aos-duration="800">
-  <div class="flex items-center gap-3">
-    <div class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded-lg text-sm hover:rotate-6 transition-transform">CP</div>
-    <span class="font-bold text-lg tracking-wide">CompanyProfile</span>
-  </div>
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-  <!-- MENU NAVIGASI DENGAN ROUTE LARAVEL -->
-  <div class="flex items-center gap-8 text-sm text-gray-400 font-medium">
-    <a href="{{ route('home') }}" class="hover:text-white transition">Home</a>
-    <a href="{{ route('about') }}" class="hover:text-white transition">Tentang Kami</a>
-    <a href="{{ route('services') }}" class="hover:text-white transition">Layanan</a>
-    <a href="{{ route('portfolio') }}" class="hover:text-white transition">Portfolio</a>
-    <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-blue-500 font-semibold' : 'hover:text-white transition' }}">Kontak</a>
-  </div>
+<header class="site-header fixed top-0 left-0 w-full z-50">
 
-  <a href="{{ route('login') }}" class="text-sm px-5 py-2 border border-gray-700 rounded-full hover:bg-gray-800 hover:border-gray-500 transition-all text-gray-300">Login Admin</a>
-</nav>
+    <nav
+        class="max-w-7xl mx-auto py-4 px-6 md:px-12 flex justify-between items-center"
+    >
+
+        <!-- LOGO -->
+
+        <a
+            href="{{ route('home') }}"
+            class="flex items-center gap-2.5 group"
+        >
+
+            <div
+                class="
+                    w-10 h-10
+                    rounded-xl
+                    bg-gradient-to-tr
+                    from-blue-600
+                    to-indigo-600
+                    text-white
+                    font-extrabold
+                    flex items-center justify-center
+                    shadow-lg
+                    shadow-blue-600/30
+                    group-hover:scale-110
+                    transition duration-300
+                "
+            >
+                CP
+            </div>
+
+            <span
+                class="
+                    text-xl
+                    font-extrabold
+                    tracking-tight
+                    text-white
+                "
+            >
+                {{ $setting?->company_name ?? 'Company Profile' }}
+            </span>
+
+        </a>
+
+
+        <!-- DESKTOP MENU -->
+
+        <div
+            class="
+                hidden md:flex
+                items-center
+                space-x-10
+                text-sm
+                font-semibold
+                text-slate-300
+            "
+        >
+
+            <!-- HOME -->
+
+            <a
+                href="{{ route('home') }}"
+                class="{{ request()->routeIs('home')
+                    ? 'text-blue-400 font-bold'
+                    : 'hover:text-blue-400' }}
+                    transition-colors"
+            >
+                Home
+            </a>
+
+
+            <!-- TENTANG KAMI -->
+
+            <a
+                href="{{ route('about') }}"
+                class="{{ request()->routeIs('about')
+                    ? 'text-blue-400 font-bold'
+                    : 'hover:text-blue-400' }}
+                    transition-colors"
+            >
+                Tentang Kami
+            </a>
+
+
+            <!-- LAYANAN -->
+
+            <a
+                href="{{ route('services') }}"
+                class="{{ request()->routeIs('services')
+                    ? 'text-blue-400 font-bold'
+                    : 'hover:text-blue-400' }}
+                    transition-colors"
+            >
+                Layanan
+            </a>
+
+
+            <!-- PORTFOLIO -->
+
+            <a
+                href="{{ route('portfolio') }}"
+                class="{{ request()->routeIs('portfolio')
+                    ? 'text-blue-400 font-bold'
+                    : 'hover:text-blue-400' }}
+                    transition-colors"
+            >
+                Portfolio
+            </a>
+
+
+            <!-- KONTAK -->
+
+            <a
+                href="{{ route('contact') }}"
+                class="{{ request()->routeIs('contact')
+                    ? 'text-blue-400 font-bold'
+                    : 'hover:text-blue-400' }}
+                    transition-colors"
+            >
+                Kontak
+            </a>
+
+        </div>
+
+
+        <!-- LOGIN ADMIN -->
+
+        <div class="hidden md:block">
+
+            <a
+                href="{{ Route::has('login') ? route('login') : '#' }}"
+                class="
+                    text-xs
+                    font-bold
+                    text-white
+                    bg-white/10
+                    hover:bg-white/20
+                    border
+                    border-white/20
+                    px-5 py-2.5
+                    rounded-full
+                    backdrop-blur-md
+                    transition
+                    hover:scale-105
+                "
+            >
+                Login Admin
+            </a>
+
+        </div>
+
+
+        <!-- MOBILE BUTTON -->
+
+        <button
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            class="
+                md:hidden
+                p-2
+                rounded-lg
+                text-white
+            "
+        >
+
+            <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+
+                <path
+                    x-show="!mobileMenuOpen"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                />
+
+                <path
+                    x-show="mobileMenuOpen"
+                    x-cloak
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                />
+
+            </svg>
+
+        </button>
+
+    </nav>
+
+
+    <!-- MOBILE MENU -->
+
+    <div
+        x-show="mobileMenuOpen"
+        x-cloak
+        @click.away="mobileMenuOpen = false"
+        class="
+            md:hidden
+            bg-slate-950/95
+            backdrop-blur-xl
+            border-b
+            border-white/10
+            px-6
+            py-5
+            space-y-3
+        "
+    >
+
+        <a
+            href="{{ route('home') }}"
+            class="block text-slate-300 hover:text-blue-400 py-1"
+        >
+            Home
+        </a>
+
+
+        <a
+            href="{{ route('about') }}"
+            class="block text-slate-300 hover:text-blue-400 py-1"
+        >
+            Tentang Kami
+        </a>
+
+
+        <a
+            href="{{ route('services') }}"
+            class="block text-slate-300 hover:text-blue-400 py-1"
+        >
+            Layanan
+        </a>
+
+
+        <a
+            href="{{ route('portfolio') }}"
+            class="block text-slate-300 hover:text-blue-400 py-1"
+        >
+            Portfolio
+        </a>
+
+
+        <!-- KONTAK AKTIF -->
+
+        <a
+            href="{{ route('contact') }}"
+            class="block text-blue-400 font-bold py-1"
+        >
+            Kontak
+        </a>
+
+
+        <div class="pt-3 border-t border-white/10">
+
+            <a
+                href="{{ Route::has('login') ? route('login') : '#' }}"
+                class="
+                    block
+                    text-center
+                    text-sm
+                    font-bold
+                    text-white
+                    bg-blue-600
+                    hover:bg-blue-500
+                    py-3
+                    rounded-xl
+                "
+            >
+                Login Admin
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
 
   <!-- MAIN CONTENT -->
   <main class="max-w-6xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center w-full">
