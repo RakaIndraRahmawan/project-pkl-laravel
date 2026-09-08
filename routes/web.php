@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 // --- FRONTEND ROUTES ---
 // Halaman Utama (Landing Page)
 Route::get('/', [FrontController::class, 'index'])->name('home');
+Route::get('/newWelcome', [FrontController::class, 'newWelcome'])->name('newWelcome');
 
 // Halaman Khusus About
 Route::get('/about', [AboutController::class, 'index'])->name('about');
