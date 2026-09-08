@@ -109,6 +109,7 @@
                                         <th scope="col" class="px-6 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-slate-500">Title</th>
                                         <th scope="col" class="px-6 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-slate-500">Slug</th>
                                         <th scope="col" class="px-6 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-slate-500">Image</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-slate-500">Tag</th>
                                         <th scope="col" class="px-6 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-slate-500">Description</th>
                                         <th scope="col" class="px-6 py-3 text-right text-[11px] font-bold uppercase tracking-wider text-slate-500">Actions</th>
                                     </tr>
@@ -128,6 +129,9 @@
                                                 @else
                                                     <span class="text-[11px] text-slate-400 italic">No image</span>
                                                 @endif
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <div class="text-sm text-slate-600 line-clamp-2 max-w-xs">{{ ucfirst($page->tag?->value ?? '-') }}</div>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div class="text-sm text-slate-600 line-clamp-2 max-w-xs">{{ $page->desc ?? '-' }}</div>

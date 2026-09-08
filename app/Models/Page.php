@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Tags;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,9 @@ class Page extends Model
         'image',
         'desc',
         'content',
+    ];
+
+    protected $casts = [
+        'tag' => Tags::class,
     ];
 }

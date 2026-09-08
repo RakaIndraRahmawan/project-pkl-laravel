@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\Tags;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
@@ -26,6 +28,7 @@ class PageController extends Controller
         $request->validate([
             'title'       => 'required|string|max:255',
             'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'tag'         => ['required', Rule::enum(Tags::class)],
             'description' => 'nullable|string',
             'content'     => 'nullable|string',
         ]);
@@ -36,6 +39,7 @@ class PageController extends Controller
         $data = [
             'title'   => $request->title,
             'slug'    => $count ? "{$slug}-{$count}" : $slug,
+            'tag'     => $request->tag,
             'desc'    => $request->description,
             'content' => $request->content,
         ];
@@ -60,6 +64,7 @@ class PageController extends Controller
         $request->validate([
             'title'       => 'required|string|max:255',
             'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'tag'         => ['required', Rule::enum(Tags::class)],
             'description' => 'nullable|string',
             'content'     => 'nullable|string',
         ]);
@@ -67,6 +72,7 @@ class PageController extends Controller
         $data = [
             'title'   => $request->title,
             'desc'    => $request->description,
+            'tag'     => $request->tag,
             'content' => $request->content,
         ];
 

@@ -123,6 +123,49 @@
                             </div>
 
                             <div>
+                                <label for="tag" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                                    Tag <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <select
+                                        id="tag"
+                                        name="tag"
+                                        required
+                                        class="appearance-none w-full px-4 py-3 rounded-xl border @error('tag') border-red-500 @else border-slate-200 @enderror focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50/50 text-slate-800 text-sm transition"
+                                    >
+                                        <option value="" disabled {{ old('tag') ? '' : 'selected' }}>
+                                            Pilih tag halaman...
+                                        </option>
+
+                                        <option value="service" {{ old('tag') === 'service' ? 'selected' : '' }}>
+                                            Service
+                                        </option>
+
+                                        <option value="portfolio" {{ old('tag') === 'portfolio' ? 'selected' : '' }}>
+                                            Portfolio
+                                        </option>
+                                    </select>
+                                    <svg
+                                        class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m6 9 6 6 6-6"
+                                        />
+                                    </svg>
+                                </div>
+
+                                @error('tag')
+                                    <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
                                 <label for="description" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Description (Singkat)</label>
                                 <textarea id="description"
                                           name="description"
