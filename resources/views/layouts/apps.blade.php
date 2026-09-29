@@ -70,6 +70,7 @@
             animation: float 5s ease-in-out infinite;
         }
     </style>
+    @yield('style')
 </head>
 <body
     class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
@@ -86,4 +87,6 @@
             once: true
         });
     </script>
+
+    @yield('script')
 </body>

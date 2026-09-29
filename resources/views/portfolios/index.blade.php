@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $setting?->company_name ?? 'Company Profile' }} - Portfolio</title>
+@extends('layouts.apps')
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+@section('title', ($setting->company_name ?? 'Company Profile') . ' - Beranda')
 
-    <!-- Tailwind CSS & Alpine.js -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+@section('style')
     <style>
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
@@ -167,86 +156,9 @@
             }
         }
     </style>
-</head>
-<body class="bg-[#080c16] text-slate-100 antialiased overflow-x-hidden" x-data="{ mobileMenuOpen: false }">
+@endsection
 
-   <!-- NAVBAR PORTFOLIO (LEBIH TERANG & TRANSPARAN) -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-slate-800/40 backdrop-blur-md border-b border-white/15 transition-all duration-300">
-        <nav class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-
-            <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center font-black shadow-lg shadow-blue-600/25 group-hover:scale-110 transition">
-                    CP
-                </div>
-                <span class="text-lg md:text-xl font-extrabold tracking-tight text-white group-hover:text-blue-400 transition">
-                    {{ $setting?->company_name ?? 'CompanyProfile' }}
-                </span>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-9 text-sm font-medium text-slate-200">
-                <a href="{{ route('home') }}" class="hover:text-white transition">Home</a>
-                <a href="{{ route('about') }}" class="hover:text-white transition">Tentang Kami</a>
-                <a href="{{ route('services') }}" class="hover:text-white transition">Layanan</a>
-                <a href="{{ route('portfolio') }}" class="relative text-white font-semibold">
-                    Portfolio
-                    <span class="absolute -bottom-1.5 left-0 w-full h-0.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
-                </a>
-                <a href="{{ route('contact') }}" class="hover:text-white transition">Kontak</a>
-            </div>
-
-            <!-- Login Button -->
-            <div class="hidden md:block">
-                <a href="{{ Route::has('login') ? route('login') : '#' }}" class="px-5 py-2 rounded-lg text-xs font-semibold bg-white/15 hover:bg-white/25 border border-white/20 text-white transition">
-                    Login Admin
-                </a>
-            </div>
-
-            <!-- Mobile Hamburger Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-slate-200 rounded-lg focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </nav>
-
-        <!-- Mobile Menu Dropdown -->
-        <div x-show="mobileMenuOpen" x-cloak @click.outside="mobileMenuOpen = false" class="md:hidden px-6 py-5 space-y-3 bg-slate-800/80 backdrop-blur-lg border-t border-white/15">
-            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-200 hover:text-white">Home</a>
-            <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-200 hover:text-white">Tentang Kami</a>
-            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-200 hover:text-white">Layanan</a>
-            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block py-1 text-white font-semibold">Portfolio</a>
-            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-200 hover:text-white">Kontak</a>
-            <a href="{{ Route::has('login') ? route('login') : '#' }}" class="block text-center mt-3 px-4 py-2.5 rounded-lg bg-white/15 text-white font-semibold text-xs border border-white/20">
-                Login Admin
-            </a>
-        </div>
-    </header>
-
-            <!-- Mobile Hamburger Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-slate-300 rounded-lg focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </nav>
-
-        <!-- Mobile Menu Dropdown -->
-        <div x-show="mobileMenuOpen" x-cloak @click.outside="mobileMenuOpen = false" class="md:hidden px-6 py-5 space-y-3 bg-[#0b0f19] border-t border-white/10">
-            <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-300 hover:text-white">Home</a>
-            <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-300 hover:text-white">Tentang Kami</a>
-            <a href="{{ route('services') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-300 hover:text-white">Layanan</a>
-            <a href="{{ route('portfolio') }}" @click="mobileMenuOpen = false" class="block py-1 text-white font-semibold">Portfolio</a>
-            <a href="{{ route('contact') }}" @click="mobileMenuOpen = false" class="block py-1 text-slate-300 hover:text-white">Kontak</a>
-            <a href="{{ Route::has('login') ? route('login') : '#' }}" class="block text-center mt-3 px-4 py-2.5 rounded-lg bg-white/10 text-white font-semibold text-xs border border-white/15">
-                Login Admin
-            </a>
-        </div>
-    </header>
-
+@section('content')
     <!-- HERO SECTION -->
     <section class="relative min-h-[700px] pt-40 pb-28 dark-grid-bg overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-blue-950/30 via-transparent to-[#080c16]"></div>
@@ -428,11 +340,4 @@
             </div>
         </div>
     </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-[#05070d] border-t border-white/5 py-7 px-6 text-center text-xs text-slate-500">
-        <p>&copy; {{ date('Y') }} {{ $setting?->company_name ?? 'Company Profile' }}. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
+@endsection
