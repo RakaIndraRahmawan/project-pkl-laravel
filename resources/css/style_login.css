@@ -299,3 +299,102 @@ form button {
   .choice-text {
     padding: 1.5rem;
   }
+
+/* ========== Mobile styles ========== */
+@media (max-width: 768px) {
+    .containerlogin {
+        width: 100%;
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    /* Hide the fancy overlay on mobile */
+    .overlay-container {
+        display: none !important;
+    }
+
+    /* Show only one form at a time */
+    .form-container {
+        width: 100% !important;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        z-index: 1;
+        transition: all 0.4s ease;
+    }
+
+    /* Default: show Sign In form */
+    .sign-in-container {
+        opacity: 1;
+        z-index: 2;
+        transform: translateX(0);
+    }
+
+    .sign-up-container {
+        opacity: 0;
+        z-index: 1;
+        transform: translateX(100%);
+    }
+
+    /* When active class is added → show Register form */
+    .containerlogin.right-panel-active .sign-in-container {
+        opacity: 0;
+        transform: translateX(-100%);
+        z-index: 1;
+    }
+
+    .containerlogin.right-panel-active .sign-up-container {
+        opacity: 1;
+        transform: translateX(0);
+        z-index: 2;
+    }
+
+    /* Make form nicer on mobile */
+    .form-login {
+        padding: 2rem 1.5rem;
+    }
+
+    .form-login h1 {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-login input {
+        width: 100%;
+        margin: 8px 0;
+        padding: 12px 15px;
+        font-size: 16px; /* prevents zoom on iOS */
+    }
+
+    .form-login button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 12px;
+        font-size: 1rem;
+    }
+
+    /* Toggle buttons (we will add them in HTML) */
+    .mobile-toggle {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .mobile-toggle a {
+        color: #4f46e5; /* or your primary color */
+        font-weight: 600;
+        text-decoration: none;
+    }
+}
+
+/* Hide mobile toggle on desktop */
+@media (min-width: 769px) {
+    .mobile-toggle {
+        display: none;
+    }
+}
