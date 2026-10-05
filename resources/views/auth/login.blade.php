@@ -35,7 +35,7 @@
 
 </head>
 
-<body class="bg-slate-50 min-h-screen flex flex-row items-center justify-center p-4">
+<body class="bg-slate-50 min-h-screen antialiased flex flex-row items-center justify-center p-4">
     <div class="hidden md:flex bg-white rounded-md relative overflow-hidden w-full max-w-3xl min-h-[480px] shadow-[0_14px_28px_rgba(0,0,0,0.25),0_10px_10px_rgba(0,0,0,0.22)]"
          id="container">
 
@@ -72,7 +72,7 @@
         </div>
 
         <div class="absolute top-0 right-0 w-1/2 h-full transition-all duration-600 ease-in-out z-20">
-            <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 h-full flex flex-col justify-center items-center text-center text-white px-8 py-12">
+            <div class="bg-slate-900 h-full flex flex-col justify-center items-center text-center text-white px-8 py-12">
                 <h1 class="text-2xl font-bold mb-2">Hello, Friend!</h1>
                 <p class="mb-6">Enter your personal details and start journey with us</p>
             </div>
