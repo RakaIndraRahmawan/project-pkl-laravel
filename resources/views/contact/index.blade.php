@@ -11,22 +11,22 @@
       font-family: 'Inter', sans-serif;
     }
 
-    body {
-    background-color: #0b0f19;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-}
+    [x-cloak] {
+        display: none !important;
+    }
 
-[x-cloak] {
-    display: none !important;
-}
+    .site-header {
+        background: rgba(15, 23, 42, 0.88);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-.site-header {
-    background: rgba(15, 23, 42, 0.88);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
+    .glow-orb {
+        border-radius: 100%;
+        pointer-events: none;
+        animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
 
   </style>
 @endsection
@@ -34,13 +34,13 @@
 @section('content')
   <!-- MAIN CONTENT -->
   <section class="bg-slate-950 mx-auto px-6 flex-1 flex flex-col justify-center items-center w-full h-[92%]">
-    
+    <div class="absolute left-1/2 top-1/4 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/15 blur-3xl glow-orb"></div>
     <!-- HEADER -->
     <div class="text-center mb-12 max-w-2xl" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
       <span class="inline-block bg-blue-900/40 text-blue-400 text-xs font-semibold px-4 py-1.5 rounded-full border border-blue-500/30 mb-4 tracking-wider animate-pulse">
         HUBUNGI KAMI
       </span>
-      <h1 class="text-4xl font-extrabold tracking-tight mb-3">
+      <h1 class="text-white text-4xl font-extrabold tracking-tight mb-3">
         Mari Berdiskusi <span class="text-blue-500">Dengan Kami</span>
       </h1>
       <p class="text-gray-400 text-sm leading-relaxed">

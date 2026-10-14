@@ -10,7 +10,7 @@
         [x-cloak] { display: none !important; }
 
         .dark-grid-bg {
-            background-color: #080c16;
+            /* background-color: #080c16; */
             background-image: 
                 linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
@@ -143,6 +143,21 @@
             animation: bounce 2s infinite;
         }
 
+        .tech-grid {
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+        }
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(7px); }
@@ -160,7 +175,7 @@
 
 @section('content')
     <!-- HERO SECTION -->
-    <section class="relative min-h-[700px] pt-40 pb-28 dark-grid-bg overflow-hidden">
+    <section class="relative min-h-[700px] pt-40 pb-28 tech-grid bg-slate-950 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-blue-950/30 via-transparent to-[#080c16]"></div>
         <div class="glow-orb orb-blue -top-20 -left-20 float"></div>
         <div class="glow-orb orb-indigo top-10 -right-20 float" style="animation-delay: 2s;"></div>

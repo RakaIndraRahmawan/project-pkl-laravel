@@ -1264,7 +1264,10 @@
     <section
         class="
             relative
-            bg-slate-900/90
+            bg-gradient-to-r
+            from-slate-950
+            via-slate-950
+            to-blue-950
             border-y
             border-white/5
             py-24
@@ -1613,6 +1616,7 @@
                         text-3xl
                         md:text-4xl
                         font-black
+                        text-white
                     "
                 >
                     Siap Membangun Sesuatu

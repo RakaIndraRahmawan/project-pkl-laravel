@@ -32,9 +32,31 @@
             animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
         }
 
+        .mini-orb {
+            position: absolute;
+            border-radius: 9999px;
+            pointer-events: none;
+            filter: blur(2px);
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+
         @keyframes pulse {
             50% {
                 opacity: 0.5;
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(0.95);
+                opacity: 0.35;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.75;
             }
         }
     </style>
@@ -45,9 +67,13 @@
     <section class="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden bg-slate-950">
         <!-- Grid Background & Animated Glow Effect -->
         <div class="absolute inset-0 tech-grid pointer-events-none"></div>
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 blur-3xl glow-orb"></div>
-        <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-indigo-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 blur-3xl glow-orb" style="animation-delay: 1s"></div>
+        <div class="absolute top-1/2 left-[15%] -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-indigo-600/15 blur-3xl glow-orb" style="animation-delay: 2s"></div>
         <div class="absolute top-2/3 left-3/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-emerald-600/15 blur-3xl glow-orb"></div>
+
+        <div class="absolute top-1/4 left-[55%] w-2.5 h-2.5 rounded-full bg-blue-400 pulse-glow"></div>
+        <div class="absolute top-[45%] left-[10%] w-3.5 h-3.5 rounded-full bg-indigo-400 pulse-glow" style="animation-delay: 1s"></div>
+        <div class="absolute top-[65%] right-[20%] w-3 h-3 rounded-full bg-emerald-400 pulse-glow" style="animation-delay: 2s"></div>
 
         <!-- Badge -->
         <div data-aos="zoom-in" data-aos-delay="200" class="inline-flex items-center space-x-2 bg-slate-900/80 border border-slate-800 rounded-full px-4 py-1.5 mb-8 backdrop-blur-md">
@@ -101,6 +127,7 @@
         <div class="absolute left-[1%] top-[98%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
         <div class="absolute right-[1%] top-[98%] transform translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
         <div class="absolute left-1/2 top-[98%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-indigo-600/30 blur-3xl glow-orb"></div>
+        
         <h2 class="text-2xl font-bold text-white mb-2">Mari Buat Sesuatu yang Luar Biasa</h2>
         <p class="text-slate-400 text-sm mb-6">Punya ide proyek? Kami siap membantunya menjadi kenyataan.</p>
         <a href="{{ route('contact') }}" class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 group">
