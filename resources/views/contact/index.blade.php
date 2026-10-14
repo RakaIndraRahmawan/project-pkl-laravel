@@ -33,7 +33,7 @@
 
 @section('content')
   <!-- MAIN CONTENT -->
-  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center w-full">
+  <section class="bg-slate-950 mx-auto px-6 flex-1 flex flex-col justify-center items-center w-full h-[92%]">
     
     <!-- HEADER -->
     <div class="text-center mb-12 max-w-2xl" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
@@ -145,7 +145,7 @@
       </div>
 
     </div>
-  </main>
+  </section>
 @section('script')
   <!-- AOS Animation Script -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

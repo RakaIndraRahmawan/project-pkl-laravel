@@ -10,15 +10,44 @@
             -webkit-backdrop-filter: blur(18px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
+
+        .tech-grid {
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+        }
+
+        .glow-orb {
+            border-radius: 100%;
+            pointer-events: none;
+            animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: 0.5;
+            }
+        }
     </style>
 @endsection
 
 @section('content')
     <!-- Hero Section -->
-    <section class="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+    <section class="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden bg-slate-950">
         <!-- Grid Background & Animated Glow Effect -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293715_1px,transparent_1px),linear-gradient(to_bottom,#1f293715_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div class="absolute inset-0 tech-grid pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-indigo-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute top-2/3 left-3/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-emerald-600/15 blur-3xl glow-orb"></div>
 
         <!-- Badge -->
         <div data-aos="zoom-in" data-aos-delay="200" class="inline-flex items-center space-x-2 bg-slate-900/80 border border-slate-800 rounded-full px-4 py-1.5 mb-8 backdrop-blur-md">
@@ -27,7 +56,7 @@
         </div>
 
         <!-- Title & Subtitle -->
-        <h1 data-aos="fade-up" data-aos-delay="300" class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+        <h1 data-aos="fade-up" data-aos-delay="300" class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-white">
             Layanan <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-indigo-500 bg-clip-text text-transparent">Profesional</span>
         </h1>
         <p data-aos="fade-up" data-aos-delay="400" class="max-w-2xl text-slate-400 text-sm md:text-base leading-relaxed mb-12">
@@ -68,7 +97,10 @@
     </section>
 
     <!-- CTA Section -->
-    <section data-aos="fade-up" data-aos-offset="100" class="border-t border-slate-800/60 py-16 text-center">
+    <section data-aos="fade-up" data-aos-offset="100" class="bg-slate-950 border-t border-slate-800/60 py-16 text-center">
+        <div class="absolute left-[1%] top-[98%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute right-[1%] top-[98%] transform translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute left-1/2 top-[98%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-indigo-600/30 blur-3xl glow-orb"></div>
         <h2 class="text-2xl font-bold text-white mb-2">Mari Buat Sesuatu yang Luar Biasa</h2>
         <p class="text-slate-400 text-sm mb-6">Punya ide proyek? Kami siap membantunya menjadi kenyataan.</p>
         <a href="{{ route('contact') }}" class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 group">

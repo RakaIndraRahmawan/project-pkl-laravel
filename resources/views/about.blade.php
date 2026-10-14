@@ -385,6 +385,7 @@
                         md:text-7xl
                         lg:text-8xl
                         font-black
+                        text-white
                         tracking-tight
                         leading-[0.95]
                     "
@@ -1104,6 +1105,7 @@
                             md:text-5xl
                             font-black
                             leading-tight
+                            text-white
                         "
                     >
 
@@ -1262,7 +1264,7 @@
     <section
         class="
             relative
-            bg-slate-900/70
+            bg-slate-900/90
             border-y
             border-white/5
             py-24
@@ -1330,6 +1332,7 @@
                         text-3xl
                         md:text-4xl
                         font-black
+                        text-white
                     "
                 >
                     Mengapa Memilih Kami?

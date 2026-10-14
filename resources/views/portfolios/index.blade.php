@@ -181,7 +181,7 @@
                         <span class="tracking-wide">Inovasi & Solusi Digital Profesional</span>
                     </div>
 
-                    <h1 class="fade-up delay-1 mt-6 text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05]">
+                    <h1 class="fade-up delay-1 mt-6 text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05] text-white">
                         Karya Digital 
                         <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-400 filter drop-shadow-sm">
                             Unggulan Kami
@@ -193,11 +193,11 @@
                     </p>
 
                     <div class="fade-up delay-3 mt-8 flex flex-wrap justify-center items-center gap-4">
-                        <a href="#projects" class="group inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-bold text-sm shadow-xl shadow-blue-600/30 transition-all duration-300 hover:-translate-y-1">
+                        <a href="#projects" class="text-white group inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-bold text-sm shadow-xl shadow-blue-600/30 transition-all duration-300 hover:-translate-y-1">
                             <span>Jelajahi Portfolio</span>
                             <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs group-hover:translate-y-0.5 transition">↓</span>
                         </a>
-                        <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-7 py-4 rounded-2xl glass hover:bg-white/10 border border-white/10 font-bold text-sm transition-all duration-300 hover:-translate-y-1">
+                        <a href="{{ route('contact') }}" class="text-white inline-flex items-center gap-2 px-7 py-4 rounded-2xl glass hover:bg-white/10 border border-white/10 font-bold text-sm transition-all duration-300 hover:-translate-y-1">
                             <span>Mulai Konsultasi</span>
                             <span class="text-blue-400">↗</span>
                         </a>
@@ -243,7 +243,7 @@
                         <span class="w-8 h-px bg-blue-500"></span>
                         Selected Works
                     </div>
-                    <h2 class="mt-4 text-3xl md:text-5xl font-black">Proyek Terbaru</h2>
+                    <h2 class="mt-4 text-3xl md:text-5xl font-black text-white">Proyek Terbaru</h2>
                     <p class="mt-4 max-w-xl text-slate-400 text-sm leading-7">
                         Kumpulan karya yang kami kembangkan untuk menghadirkan pengalaman digital yang modern, cepat, dan relevan.
                     </p>
@@ -286,7 +286,7 @@
                                 <span class="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold">Digital Project</span>
                             </div>
 
-                            <h3 class="text-xl font-black group-hover:text-blue-400 transition">{{ $item->title }}</h3>
+                            <h3 class="text-white text-xl font-black group-hover:text-blue-400 transition">{{ $item->title }}</h3>
 
                             <p class="mt-3 text-sm text-slate-400 leading-6 line-clamp-3">
                                 {{ Str::limit(strip_tags($item->content ?? ''), 120) }}
@@ -326,7 +326,7 @@
                         Let's create
                     </span>
 
-                    <h2 class="mt-6 text-3xl md:text-5xl font-black">Punya Ide Proyek?</h2>
+                    <h2 class="mt-6 text-3xl md:text-5xl font-black text-white">Punya Ide Proyek?</h2>
 
                     <p class="mt-4 max-w-2xl mx-auto text-slate-400 text-sm md:text-base leading-7">
                         Mari ubah ide Anda menjadi solusi digital yang modern dan berdampak.
