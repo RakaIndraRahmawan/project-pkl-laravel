@@ -43,6 +43,75 @@
             animation: pulseGlow 4s infinite ease-in-out;
         }
 
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.45s ease,
+                        box-shadow 0.45s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.42);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.5),
+                        0 0 35px rgba(37, 99, 235, 0.10);
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(120deg, transparent, rgba(96, 165, 250, 0.16), transparent);
+            transform: translateX(-120%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .service-card:hover::before {
+            transform: translateX(120%);
+        }
+
+        .service-image {
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                        filter 0.65s ease;
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.09);
+            filter: brightness(1.08);
+        }
+
+        .number-badge {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -130%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.9s ease;
+            pointer-events: none;
+        }
+        
+        .shine:hover::after {
+            left: 140%;
+        }
+
+
+
         @keyframes pulse {
             50% {
                 opacity: 0.5;
@@ -122,12 +191,95 @@
         </div>
     </section>
 
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="relative bg-slate-950 py-24 overflow-hidden">
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
+        <div class="absolute -left-48 top-20 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px]"></div>
+        <div class="absolute -right-48 bottom-20 w-96 h-96 rounded-full bg-indigo-600/10 blur-[120px]"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-blue-400 text-xs font-bold uppercase tracking-[0.2em]">
+                        <span class="w-8 h-px bg-blue-500"></span>
+                        Our Top Services
+                    </div>
+                    <h2 class="mt-4 text-3xl md:text-5xl font-black text-white">Layanan Terbaru</h2>
+                    <p class="mt-4 max-w-xl text-slate-400 text-sm leading-7">
+                        Kumpulan layanan yang kami tawarkan untuk menghadirkan pengalaman digital yang modern, cepat, dan relevan.
+                    </p>
+                </div>
+                <div class="glass rounded-2xl px-5 py-4 text-xs text-slate-400">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-2"></span>
+                    Quality first · Detail matters
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                @forelse($services as $index => $item)
+                    <article class="service-card bg-slate-900 shine glass rounded-3xl p-4 group">
+                        <div class="relative h-56 overflow-hidden rounded-2xl bg-slate-900">
+                            @if($item->serviceImages && $item->serviceImages->isNotEmpty())
+                                <img src="{{ asset('storage/' . $item->serviceImages->first()->image) }}" alt="{{ $item->title }}" class="portfolio-image w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full flex flex-col items-center justify-center text-slate-600 bg-gradient-to-br from-slate-900 to-slate-950">
+                                    <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.5-5 3 3 3.5-4 5 6M4 19h16"/>
+                                    </svg>
+                                    <span class="text-xs">Tidak ada gambar</span>
+                                </div>
+                            @endif
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                            
+                            <div class="number-badge absolute top-4 left-4 glass rounded-xl px-3 py-2 text-[10px] font-black text-blue-300">
+                                {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                            </div>
+
+                            <div class="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition duration-300">
+                                ↗
+                            </div>
+                        </div>
+
+                        <div class="p-3 pt-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                                <span class="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold">Digital Project</span>
+                            </div>
+
+                            <h3 class="text-white text-xl font-black group-hover:text-blue-400 transition">{{ $item->title }}</h3>
+
+                            <p class="mt-3 text-sm text-slate-400 leading-6 line-clamp-3">
+                                {{ Str::limit(strip_tags($item->content ?? ''), 120) }}
+                            </p>
+
+                            <div class="mt-6 pt-5 border-t border-white/5">
+                                <a href="{{ route('page.show', $item->slug) }}" class="inline-flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition">
+                                    Lihat Detail
+                                    <span class="group-hover:translate-x-1 transition-transform">→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                @empty
+                    <div class="col-span-full glass rounded-3xl py-20 px-6 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-2xl mb-4">
+                            ✦
+                        </div>
+                        <h3 class="text-xl font-bold">Belum Ada Layanan</h3>
+                        <p class="mt-2 text-sm text-slate-500">Layanan yang ditambahkan melalui dashboard admin akan muncul di sini.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
-    <section data-aos="fade-up" data-aos-offset="100" class="bg-slate-950 border-t border-slate-800/60 py-16 text-center">
-        <div class="absolute left-[1%] top-[98%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
-        <div class="absolute right-[1%] top-[98%] transform translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
-        <div class="absolute left-1/2 top-[98%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-indigo-600/30 blur-3xl glow-orb"></div>
-        
+    <section data-aos="fade-up" data-aos-offset="100" class="bg-gradient-to-r from-slate-950 via-slate-950 to-indigo-950 border-t border-slate-800/60 py-16 text-center">
+        {{-- <div class="absolute left-[1%] bottom-[2%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute right-[1%] bottom-[2%] transform translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-blue-600/15 blur-3xl glow-orb"></div>
+        <div class="absolute left-1/2 bottom-[2%] transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-indigo-600/30 blur-3xl glow-orb"></div> --}}
+
         <h2 class="text-2xl font-bold text-white mb-2">Mari Buat Sesuatu yang Luar Biasa</h2>
         <p class="text-slate-400 text-sm mb-6">Punya ide proyek? Kami siap membantunya menjadi kenyataan.</p>
         <a href="{{ route('contact') }}" class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 group">
