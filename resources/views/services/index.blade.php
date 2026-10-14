@@ -26,6 +26,19 @@
             background-size: 45px 45px;
         }
 
+        .glass {
+            background: rgba(15, 23, 42, 0.62);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-badge {
+            background: rgba(255, 255, 255, 0.055);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .glow-orb {
             border-radius: 100%;
             pointer-events: none;
@@ -192,7 +205,7 @@
     </section>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="relative bg-slate-950 py-24 overflow-hidden">
+    <section id="projects" class="relative bg-[#080c16] py-24 overflow-hidden">
         <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
         <div class="absolute -left-48 top-20 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px]"></div>
         <div class="absolute -right-48 bottom-20 w-96 h-96 rounded-full bg-indigo-600/10 blur-[120px]"></div>
@@ -217,7 +230,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                 @forelse($services as $index => $item)
-                    <article class="service-card bg-slate-900 shine glass rounded-3xl p-4 group">
+                    <article class="service-card shine glass rounded-3xl p-4 group">
                         <div class="relative h-56 overflow-hidden rounded-2xl bg-slate-900">
                             @if($item->serviceImages && $item->serviceImages->isNotEmpty())
                                 <img src="{{ asset('storage/' . $item->serviceImages->first()->image) }}" alt="{{ $item->title }}" class="portfolio-image w-full h-full object-cover">
